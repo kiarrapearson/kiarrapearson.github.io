@@ -1,0 +1,44 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Kiarra M. Pearson",
+    "section": "",
+    "text": "Hi, I’m Kiarra and I am a 9th grade English teacher in Chicago, Illinois."
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "Kiarra M. Pearson",
+    "section": "Education",
+    "text": "Education\nThe George Washington University, B.A. Journalism and Mass Communications\nNational Louis University, M.A.T in Secondary Education"
+  },
+  {
+    "objectID": "index.html#work-experience",
+    "href": "index.html#work-experience",
+    "title": "Kiarra M. Pearson",
+    "section": "Work Experience",
+    "text": "Work Experience\nCommonwealth Edison\nChicago Scholars Foundation\nTeach for America Ignite Fellowship\nUniversity of Chicago Charter Woodlawn"
+  },
+  {
+    "objectID": "index.html#skillsets",
+    "href": "index.html#skillsets",
+    "title": "Kiarra M. Pearson",
+    "section": "Skillsets",
+    "text": "Skillsets\nNews Writing and Reporting Data Analysis Adobe Software Newsletter Design Web Development"
+  },
+  {
+    "objectID": "index.html#skills",
+    "href": "index.html#skills",
+    "title": "Kiarra M. Pearson",
+    "section": "Skills",
+    "text": "Skills\nNews Writing and Reporting\nData Analysis\nAdobe Software\nNewsletter Design\nWeb Development"
+  }
+]

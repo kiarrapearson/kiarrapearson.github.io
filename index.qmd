@@ -1,0 +1,47 @@
+---
+title: "Kiarra M. Pearson"
+about:
+  template: jolla
+  image: kppic.jpeg
+  links:
+    - icon: twitter
+      text: twitter
+      href: https://twitter.com/KiarraaMonet
+    - icon: github
+      text: Github
+      href: https://github.com/kiarrapearson
+
+---
+
+Hi, I'm Kiarra and I am a 9th grade English teacher in Chicago, Illinois.
+
+## Education 
+
+The George Washington University,
+B.A. Journalism and Mass Communications
+
+National Louis University,
+M.A.T in Secondary Education
+
+## Work Experience
+
+Commonwealth Edison
+
+Chicago Scholars Foundation 
+
+Teach for America Ignite Fellowship 
+
+University of Chicago Charter Woodlawn
+
+## Skills
+
+News Writing and Reporting
+
+Data Analysis 
+
+Adobe Software
+
+Newsletter Design 
+
+Web Development
+

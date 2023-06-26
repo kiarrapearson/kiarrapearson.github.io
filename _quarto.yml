@@ -1,0 +1,27 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Kiarra Pearson's Website"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - portfolio.qmd
+format:
+  html:
+    theme: minty
+    css: styles.css
+    toc: true
+
+page-footer: 
+    left: "Copyright 2022, Testy R. Testman" 
+    right: 
+      - icon: github
+        href: https://github.com/kiarrapearson
+      - icon: twitter 
+        href: https://twitter.com/KiarraaMonet
+
+
