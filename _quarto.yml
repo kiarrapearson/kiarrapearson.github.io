@@ -8,9 +8,10 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
       - portfolio.qmd
       - Analysis Walkthrough.qmd
+      - Virginia Election Project.qmd
+      - News Writing Piece.qmd
       
   page-footer: 
     left: "Copyright 2021, Norah Jones" 

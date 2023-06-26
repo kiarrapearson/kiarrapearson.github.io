@@ -1,0 +1,43 @@
+---
+title: "Virginia Election Project"
+author: "Kiarra Pearson"
+editor: visual
+---
+
+# Comparing Virginia Gov vs. Presidents (Dem and GOP)
+
+## Intro
+
+This R project is designed to look and analyze the past 2021 VA gubernatorial election between Youngkin and Mcauliffe and VA’s 2020 presidential election between Trump and Biden. The following elements that will be investigated is comparing Youngkin and Mcauliffe’s by each VA counties and comparing Trump and Biden’s performance in each VA county. From here on, we will be also looking at where Youngkin performed better than Mcauliffe and where Trump performed better than Biden in the top 5 counties and vice versa. Finally, we will be using DT package which is for the Dtable that will be shown after running the codes for the table visualization.
+
+#First Step - Run this code chunk here first down below before starting.
+
+
+#Question 1.
+
+We start by looking at the R_Dtable which provides the locality which are all the counties in VA. Since we need to start off with a dataset you would first enter R_Dtable since this is the set we are using for this whole assignment. Next we use “select” since we need to know what we are using. In this case, we will first select locality since the counties will be part of all of our mutations. We will first D_vs_R which is the percentage difference between Mcauliffe to Youngkin. After running this code below, we see the comparison of how Mcauliffe did over Youngkin. For example, Arlington (54.04) & Fairfax county (28.18) is one of the counties Mcauliffe strived in compare to Youngkin; whereas Youngkin exceeded in counties like Lee (-75.5) and Augusta (-56.4). Overall, this all makes sense since Democrat voters are mostly in cities and Republicans are mostly in rural areas.
+
+One special comment I would like to add about it Virginia Beach county (-8.02) because this county was flipped to Youngkin in 2021 along with Surry county (-0.34).
+
+
+Question #2.
+
+We do the same procedure here but now we are looking at Biden_vs_Trump which is the percentage of the difference between Biden and Trump. Again not surprise here with the results. Alexandria city (62.7) tends to be a strong hold for Democrats and rural counties like Bland (-68.2) and Tazewell (-67.2) is a strong hold for the president and the Republicans. However, Virginia Beach (5.41) and Surry (8.32) stayed with Biden for this one compared to Youngkin’s flip.
+
+
+Question #3.
+
+This question is the same as question 2. Only difference is that we used the arrange and descending tool numerically to show all the positive to negative percentages - greatest to least. Positive percentage numbers indicate on the counties Biden was very strong in. On the other hand, negative number percentages show where Trump was strong in.
+
+
+Question #4
+
+This question is also the same case. Just dedicated on the percentage numbers of Youngkin. Lee, Scott, Tazewell, Bland, and Russell county being the top 5 counties highest percentage of vote for Youngkin.
+
+
+Question #6
+
+This question we are comparing the highest percentage vote difference between Trump and Youngkin. We can see that the top 5 highest percentage of vote is Radford city, King George, Charlotte, Mecklenburg, and Prince Edward county. However, one contrast we see here with just Prince Edward county is that Biden this county by a slight margin in 2020, but in 2021 Youngkin flipped it by a little less than 4% from Mcauliffe.
+
+
+
