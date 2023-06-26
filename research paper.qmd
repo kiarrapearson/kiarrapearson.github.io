@@ -1,8 +1,12 @@
 ---
-title: "Portfolio"
+title: "Research Paper"
+author: "Kiarra Pearson"
+format:
+  html:
+    self-contained: true
+    code-fold: true
+    code-tools: true
 ---
-
-Hi here is a research paper I wrote about how TikTok Algorithms shape social identity.
 
 **Introduction**
 
@@ -36,6 +40,8 @@ Another benefit of personalized social media algorithms is their role in targete
 
 ![](https://lh4.googleusercontent.com/YS7xRA6bnr0U5ijSRCWZtZJcHQzLIwuoAHkuhwxU31YJQLlOzT-S_47Yr11p18aWWJKl_zKocuvJh5JQ_QZ4e_FUqFANvXcIAWE9xqwg17-yefF-PqYf83KZ4eKw-PHzyqQ9k6MdREy8HPdNRPVGs5E)![](https://lh3.googleusercontent.com/iF1ZFDF7hiQfatV0oiu310HkiPyKM0f5jN8dNcFNxlexl-keTG38DirDvQ762l7PPXzg2GdMYZv7Rio-GHlE-lKGsIaZNJ0x262XRUU8qbKpigKSOf4Oq_oLWrt49rPUeWImjyufMzLObhkGJb08VIU)
 
+\
+
 **Hypothesis**
 
 The algorithmic personalization of TikTok content reinforces existing social hierarchies and perpetuates echo chambers among users. This hypothesis suggests that TikTok algorithms contribute to the reinforcement of social hierarchies and the creation of echo chambers within the platform. The algorithms are designed to tailor content recommendations based on user preferences and behaviors. However, this personalization may lead to narrowing perspectives and amplifying existing biases and preferences. Users are more likely to be exposed to content that aligns with their beliefs, interests, and identities, reinforcing their own views and limited exposure to diverse perspectives. 
@@ -49,6 +55,8 @@ To investigate this hypothesis, I created a new TikTok account to examine user e
 **Findings**
 
  TikTok primarily introduced me to content from popular social media influencers, including advertisements regarding student life, school, and education. Without engaging with any content (liking, commenting, or reposting) on the new TikTok account or allowing my contacts to find my new account, I found that TikTok may have been using data from the new Apple ID which I used to create the new account. The information associated with my Apple ID is my personal information, such as my name and age. Other important information included device information, usage of other apps, and location data. Much of the content on the burner account pertained to \"Student life\" throughout the study. I believe that TikTok used the data from my Apple ID and university location to recommend content that users with similar data metrics have engaged with. Student life and school-related content are popular and trending on TikTok due to finals, midterms, and graduation season. 
+
+\
 
 The new TikTok account I studied became an echo chamber where I was essentially exposed to content relating to educational institutions, student life, and other academic topics that varied across different education levels. The echo chamber positively represented a sense of community and support among students, providing a platform for sharing experiences, offering advice, and building connections with peers in similar educational contexts. While echo chambers can reinforce biases and limited perspectives, I found that \"student TikTok\" did not include content that aligned with political or social viewpoints. I found the content to be very inclusive of all demographics as they discussed the shared experiences of a student in a learning environment. However, the \"Student TikTok\" echo chamber perpetuated certain realistic narratives and beliefs about students' lifestyles that can also be misleading for immature viewers. The platform\'s algorithm did contribute to the dissemination of false or misleading information regarding misleading academic advice, academic shortcuts, fabricated school experiences, bad behavior, and COVID-19 misinformation, but in a rather comedic way. 
 
@@ -72,6 +80,7 @@ Social media algorithms can significantly influence individuals\' self-perceptio
 
 A stronger understanding of social media algorithms can result in a more informed and empowered society. Awareness of personalized content can encourage users to actively seek and engage with content outside of their filter bubbles promoting a balanced perspective. Secondly, with media literacy and further knowledge about social media algorithms, users can recognize when they are being presented with misinformation and evaluate the credibility of the content producer. Lastly, after studying the effects of social media algorithms, students and organizations can advocate and raise awareness of the potential consequences of echo chambers, polarization, and the dissemination of misinformation. 
 
+\
 \
 \
 \

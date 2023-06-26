@@ -8,7 +8,7 @@
 
 <meta name="author" content="Kiarra Pearson">
 
-<title>Kiarra Pearson’s Website - Analysis Walkthrough</title>
+<title>Kiarra Pearson’s Website - Research Paper</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -4019,7 +4019,7 @@ vertical-align: -.125em;
  <span class="menu-text">Portfolio</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./Analysis Walkthrough.html" aria-current="page">
+    <a class="nav-link" href="./Analysis Walkthrough.html">
  <span class="menu-text">Analysis Walkthrough</span></a>
   </li>  
 </ul>
@@ -4040,7 +4040,7 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Analysis Walkthrough</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Research Paper</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -4061,435 +4061,64 @@ vertical-align: -.125em;
 
 </header>
 
-<p>we’ll start by loading our libraries.</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#first we&#39;ll load our libraries</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#make sure to install the tidyverse if it&#39;s not already installed</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.2     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.1     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-</div>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>We’re going to look at some sample data from Texas on housing prices throughout the state.</p>
-<p>First, we will load the data.</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># run this line below load the data for this assignment</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>impeach <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vRh8d5JaDqBtByzNw2JZF3idaACobDhhk-p7chJoktA0HawELHFOvjQOqCpzGA4MGONvPlR7GASqW-K/pub?gid=1765341510&amp;single=true&amp;output=csv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 235 Columns: 32
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: &quot;,&quot;
-chr  (19): for_impeachment, last_name, first_name, middle_name, party, state...
-dbl  (10): date_month, date_year, median_income, median_age, pct_nonwhite, p...
-date  (3): date_exact, date_approx_month, date_comb
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-</div>
-<p>We are going to see a data file called “impeach” and see which members support impeachment or not.</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># it will load a dataframe called &quot;impeach,&quot; containing U.S. House Democrats</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and whether they supported impeachment along with when they announced such support</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>Now use the R codes we have learned throughout class. Note: You are going to see this symbol “%&gt;%.” This symbol is a pipe operator we use in R. It takes the output of one function and passes it into another function as an argument. This allows us to link a sequence of analysis steps.</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># FOR EACH OF THE QUESTIONS BELOW, WRITE YOUR WORKING R CODE TO RETURN THE REQUESTED RESULTS</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># USE COMMENTS (PREFACED BY THE #) TO ACCOMPANY YOUR CODE TO EXPLAIN WHAT YOU&#39;RE DOING </span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># FOR EACH STEP</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>From the data we are given, we will first find for the members who have favored in impeachment. Therefore, we will first write impeach that is the datasheet we will be using for this whole exercise. After that we will use the filter option and put “no” for impeachment and run it.</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) The column &quot;for_impeachment&quot; indicates whether the member has publicly called for</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># an impeachment inquiry. Filter to return only the ones where the answer is NO.    </span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;NO&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 26 × 32
-   for_impeachment last_name  first_name middle_name party state district
-   &lt;chr&gt;           &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
- 1 NO              Allred     Colin      &lt;NA&gt;        D     TX    32      
- 2 NO              Brindisi   Anthony    &lt;NA&gt;        D     NY    22      
- 3 NO              Bustos     Cheri      &lt;NA&gt;        D     IL    17      
- 4 NO              Cuellar    Henry      &lt;NA&gt;        D     TX    28      
- 5 NO              Cunningham Joe        &lt;NA&gt;        D     SC    1       
- 6 NO              Davids     Sharice    &lt;NA&gt;        D     KS    3       
- 7 NO              Gabbard    Tulsi      &lt;NA&gt;        D     HI    2       
- 8 NO              Golden     Jared      &lt;NA&gt;        D     ME    2       
- 9 NO              Gonzalez   Vicente    &lt;NA&gt;        D     TX    15      
-10 NO              Horn       Kendra     &lt;NA&gt;        D     OK    5       
-# ℹ 16 more rows
-# ℹ 25 more variables: date_exact &lt;date&gt;, date_approx_month &lt;date&gt;,
-#   date_comb &lt;date&gt;, date_month &lt;dbl&gt;, date_year &lt;dbl&gt;,
-#   margin_flag_2018 &lt;chr&gt;, flip_2018 &lt;chr&gt;, house_dist &lt;chr&gt;,
-#   keyrace_rating &lt;chr&gt;, median_income &lt;dbl&gt;,
-#   median_income_compared_to_national &lt;chr&gt;, median_age &lt;dbl&gt;,
-#   median_age_compared_to_national &lt;chr&gt;, pct_nonwhite &lt;dbl&gt;, …</code></pre>
-</div>
-</div>
-<p>We do the same thing here with question #1, but we add Republican party that Trump won in 2016 and run it.</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Filter to return only results where a member is both against impeachment, and comes from a </span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># district that President Trump won in 2016 (which is noted in the &quot;p16winningparty&quot; column)</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;NO&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p16winningparty <span class="sc">==</span> <span class="st">&quot;R&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 15 × 32
-   for_impeachment last_name    first_name middle_name party state district
-   &lt;chr&gt;           &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
- 1 NO              Brindisi     Anthony    &lt;NA&gt;        D     NY    22      
- 2 NO              Bustos       Cheri      &lt;NA&gt;        D     IL    17      
- 3 NO              Cunningham   Joe        &lt;NA&gt;        D     SC    1       
- 4 NO              Golden       Jared      &lt;NA&gt;        D     ME    2       
- 5 NO              Horn         Kendra     &lt;NA&gt;        D     OK    5       
- 6 NO              Kind         Ron        &lt;NA&gt;        D     WI    3       
- 7 NO              Lamb         Conor      &lt;NA&gt;        D     PA    17      
- 8 NO              Lee          Susie      &lt;NA&gt;        D     NV    3       
- 9 NO              McAdams      Ben        &lt;NA&gt;        D     UT    4       
-10 NO              McBath       Lucy       &lt;NA&gt;        D     GA    6       
-11 NO              O&#39;Halleran   Tom        &lt;NA&gt;        D     AZ    1       
-12 NO              Peterson     Collin     C.          D     MN    7       
-13 NO              Rose         Max        &lt;NA&gt;        D     NY    11      
-14 NO              Torres Small Xochitl    &lt;NA&gt;        D     NM    2       
-15 NO              Van Drew     Jefferson  &lt;NA&gt;        D     NJ    2       
-# ℹ 25 more variables: date_exact &lt;date&gt;, date_approx_month &lt;date&gt;,
-#   date_comb &lt;date&gt;, date_month &lt;dbl&gt;, date_year &lt;dbl&gt;,
-#   margin_flag_2018 &lt;chr&gt;, flip_2018 &lt;chr&gt;, house_dist &lt;chr&gt;,
-#   keyrace_rating &lt;chr&gt;, median_income &lt;dbl&gt;,
-#   median_income_compared_to_national &lt;chr&gt;, median_age &lt;dbl&gt;,
-#   median_age_compared_to_national &lt;chr&gt;, pct_nonwhite &lt;dbl&gt;,
-#   pct_nonwhite_compared_to_national &lt;chr&gt;, pct_bachelors &lt;dbl&gt;, …</code></pre>
-</div>
-</div>
-<p>Same here, but we add an addition to the Republican Mitt Romney carried in 2012.</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Filter for only results where a member is against impeachment, comes from a </span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># district that President Trump won in 2016 (which is noted in the &quot;p16winningparty&quot; column),</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># and also comes from a district that Mitt Romney won in 2012 (&quot;p12winningparty&quot;).</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;NO&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p16winningparty <span class="sc">==</span> <span class="st">&quot;R&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p12winningparty <span class="sc">==</span> <span class="st">&quot;R&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 9 × 32
-  for_impeachment last_name    first_name middle_name party state district
-  &lt;chr&gt;           &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
-1 NO              Brindisi     Anthony    &lt;NA&gt;        D     NY    22      
-2 NO              Cunningham   Joe        &lt;NA&gt;        D     SC    1       
-3 NO              Horn         Kendra     &lt;NA&gt;        D     OK    5       
-4 NO              Lamb         Conor      &lt;NA&gt;        D     PA    17      
-5 NO              McAdams      Ben        &lt;NA&gt;        D     UT    4       
-6 NO              McBath       Lucy       &lt;NA&gt;        D     GA    6       
-7 NO              O&#39;Halleran   Tom        &lt;NA&gt;        D     AZ    1       
-8 NO              Peterson     Collin     C.          D     MN    7       
-9 NO              Torres Small Xochitl    &lt;NA&gt;        D     NM    2       
-# ℹ 25 more variables: date_exact &lt;date&gt;, date_approx_month &lt;date&gt;,
-#   date_comb &lt;date&gt;, date_month &lt;dbl&gt;, date_year &lt;dbl&gt;,
-#   margin_flag_2018 &lt;chr&gt;, flip_2018 &lt;chr&gt;, house_dist &lt;chr&gt;,
-#   keyrace_rating &lt;chr&gt;, median_income &lt;dbl&gt;,
-#   median_income_compared_to_national &lt;chr&gt;, median_age &lt;dbl&gt;,
-#   median_age_compared_to_national &lt;chr&gt;, pct_nonwhite &lt;dbl&gt;,
-#   pct_nonwhite_compared_to_national &lt;chr&gt;, pct_bachelors &lt;dbl&gt;, …</code></pre>
-</div>
-</div>
-<p>For question #4, we are going to filter for members who are for impeachment but only during the the month of Sept in the year of 2019.</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4) Filter for only results from September 2019 where a member is a YES for impeachment. </span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;YES&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date_year <span class="sc">==</span> <span class="st">&quot;2019&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date_month <span class="sc">==</span> <span class="st">&quot;9&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 76 × 32
-   for_impeachment last_name  first_name middle_name party state district
-   &lt;chr&gt;           &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
- 1 YES             Axne       Cynthia    &lt;NA&gt;        D     IA    3       
- 2 YES             Bass       Karen      &lt;NA&gt;        D     CA    37      
- 3 YES             Bera       Ami        &lt;NA&gt;        D     CA    7       
- 4 YES             Bishop     Sanford    D.          D     GA    2       
- 5 YES             Cartwright Matt       &lt;NA&gt;        D     PA    8       
- 6 YES             Case       Ed         &lt;NA&gt;        D     HI    1       
- 7 YES             Castor     Kathy      &lt;NA&gt;        D     FL    14      
- 8 YES             Cisneros   Gilbert    &lt;NA&gt;        D     CA    39      
- 9 YES             Clyburn    James      E.          D     SC    6       
-10 YES             Cooper     Jim        &lt;NA&gt;        D     TN    5       
-# ℹ 66 more rows
-# ℹ 25 more variables: date_exact &lt;date&gt;, date_approx_month &lt;date&gt;,
-#   date_comb &lt;date&gt;, date_month &lt;dbl&gt;, date_year &lt;dbl&gt;,
-#   margin_flag_2018 &lt;chr&gt;, flip_2018 &lt;chr&gt;, house_dist &lt;chr&gt;,
-#   keyrace_rating &lt;chr&gt;, median_income &lt;dbl&gt;,
-#   median_income_compared_to_national &lt;chr&gt;, median_age &lt;dbl&gt;,
-#   median_age_compared_to_national &lt;chr&gt;, pct_nonwhite &lt;dbl&gt;, …</code></pre>
-</div>
-</div>
-<p>For question #5, we will put the same for impeachment and the new one we would add is where Hillary Clinton won more than 70% votes in 2016 underneath the CLinton P percent column on the dataset.</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 5) Filter for only results where a member is a YES for impeachment and is from a district</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># where Clinton won more than 70 percent of the vote in 2016 (found in column &quot;clinton_percent&quot;)</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;YES&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(clinton_percent <span class="sc">&gt;</span> <span class="dv">70</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 55 × 32
-   for_impeachment last_name first_name middle_name party state district
-   &lt;chr&gt;           &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
- 1 YES             Barragan  Nanette    &lt;NA&gt;        D     CA    44      
- 2 YES             Bass      Karen      &lt;NA&gt;        D     CA    37      
- 3 YES             Beyer     Donald     &lt;NA&gt;        D     VA    8       
- 4 YES             Boyle     Brendan    &lt;NA&gt;        D     PA    2       
- 5 YES             Brown     Anthony    &lt;NA&gt;        D     MD    4       
- 6 YES             Cardenas  Tony       &lt;NA&gt;        D     CA    29      
- 7 YES             Clarke    Yvette     D.          D     NY    9       
- 8 YES             Clay      William    Lacy        D     MO    1       
- 9 YES             Cohen     Steve      &lt;NA&gt;        D     TN    9       
-10 YES             Cummings  Elijah     E.          D     MD    7       
-# ℹ 45 more rows
-# ℹ 25 more variables: date_exact &lt;date&gt;, date_approx_month &lt;date&gt;,
-#   date_comb &lt;date&gt;, date_month &lt;dbl&gt;, date_year &lt;dbl&gt;,
-#   margin_flag_2018 &lt;chr&gt;, flip_2018 &lt;chr&gt;, house_dist &lt;chr&gt;,
-#   keyrace_rating &lt;chr&gt;, median_income &lt;dbl&gt;,
-#   median_income_compared_to_national &lt;chr&gt;, median_age &lt;dbl&gt;,
-#   median_age_compared_to_national &lt;chr&gt;, pct_nonwhite &lt;dbl&gt;, …</code></pre>
-</div>
-</div>
-<p>For question #6, we are now going to use the term arrange for it to arrange the data from low to high. Hence, going to arrange for people who have a BA degree or higher.</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 6) Sort the entire dataframe based on the percentage of a district that has a </span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># bachelor&#39;s degree or higher (&quot;pct_bachelors&quot;), from lowest to highest</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(pct_bachelors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 235 × 32
-   for_impeachment last_name     first_name middle_name party state district
-   &lt;chr&gt;           &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
- 1 YES             Cox           TJ         &lt;NA&gt;        D     CA    21      
- 2 YES             Roybal-Allard Lucille    &lt;NA&gt;        D     CA    40      
- 3 YES             Garcia        Sylvia     &lt;NA&gt;        D     TX    29      
- 4 YES             Veasey        Marc       &lt;NA&gt;        D     TX    33      
- 5 YES             Costa         Jim        &lt;NA&gt;        D     CA    16      
- 6 YES             Barragan      Nanette    &lt;NA&gt;        D     CA    44      
- 7 YES             Serrano       Jose       E.          D     NY    15      
- 8 YES             Vargas        Juan       &lt;NA&gt;        D     CA    51      
- 9 YES             Gallego       Ruben      &lt;NA&gt;        D     AZ    7       
-10 YES             Tlaib         Rashida    &lt;NA&gt;        D     MI    13      
-# ℹ 225 more rows
-# ℹ 25 more variables: date_exact &lt;date&gt;, date_approx_month &lt;date&gt;,
-#   date_comb &lt;date&gt;, date_month &lt;dbl&gt;, date_year &lt;dbl&gt;,
-#   margin_flag_2018 &lt;chr&gt;, flip_2018 &lt;chr&gt;, house_dist &lt;chr&gt;,
-#   keyrace_rating &lt;chr&gt;, median_income &lt;dbl&gt;,
-#   median_income_compared_to_national &lt;chr&gt;, median_age &lt;dbl&gt;,
-#   median_age_compared_to_national &lt;chr&gt;, pct_nonwhite &lt;dbl&gt;, …</code></pre>
-</div>
-</div>
-<p>For question #7, arrange is the same as question #6 and the only thing I added along with it was those who are against (No) for impeachment.</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 7) Sort the just those who are NO on impeachment based on the percentage of a district that has a </span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># bachelor&#39;s degree or higher (&quot;pct_bachelors&quot;), from lowest to highest</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;NO&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(pct_bachelors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 26 × 32
-   for_impeachment last_name    first_name middle_name party state district
-   &lt;chr&gt;           &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
- 1 NO              Cuellar      Henry      &lt;NA&gt;        D     TX    28      
- 2 NO              Bustos       Cheri      &lt;NA&gt;        D     IL    17      
- 3 NO              Wilson       Frederica  &lt;NA&gt;        D     FL    24      
- 4 NO              Gonzalez     Vicente    &lt;NA&gt;        D     TX    15      
- 5 NO              Sewell       Terri      &lt;NA&gt;        D     AL    7       
- 6 NO              Lawson       Al         &lt;NA&gt;        D     FL    5       
- 7 NO              Johnson      Eddie      Bernice     D     TX    30      
- 8 NO              Horsford     Steven     &lt;NA&gt;        D     NV    4       
- 9 NO              Torres Small Xochitl    &lt;NA&gt;        D     NM    2       
-10 NO              Peterson     Collin     C.          D     MN    7       
-# ℹ 16 more rows
-# ℹ 25 more variables: date_exact &lt;date&gt;, date_approx_month &lt;date&gt;,
-#   date_comb &lt;date&gt;, date_month &lt;dbl&gt;, date_year &lt;dbl&gt;,
-#   margin_flag_2018 &lt;chr&gt;, flip_2018 &lt;chr&gt;, house_dist &lt;chr&gt;,
-#   keyrace_rating &lt;chr&gt;, median_income &lt;dbl&gt;,
-#   median_income_compared_to_national &lt;chr&gt;, median_age &lt;dbl&gt;,
-#   median_age_compared_to_national &lt;chr&gt;, pct_nonwhite &lt;dbl&gt;, …</code></pre>
-</div>
-</div>
-<p>For question #8, the first two steps are exaclty the same from question #7 and the only thing that is added is the BA degrees that were below the national average from the data set.</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 8) Sort the just those who are NO on impeachment based on the percentage of a district that has a </span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># bachelor&#39;s degree or higher (&quot;pct_bachelors&quot;), from lowest to highest.</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Then filter those records by only those whose bachelor&#39;s percentage is below the national average (found</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># in the &quot;pct_bachelors_compared_to_national&quot; column).</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;NO&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(pct_bachelors) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pct_bachelors_compared_to_national <span class="sc">==</span> <span class="st">&quot;BELOW&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 19 × 32
-   for_impeachment last_name    first_name middle_name party state district
-   &lt;chr&gt;           &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
- 1 NO              Cuellar      Henry      &lt;NA&gt;        D     TX    28      
- 2 NO              Bustos       Cheri      &lt;NA&gt;        D     IL    17      
- 3 NO              Wilson       Frederica  &lt;NA&gt;        D     FL    24      
- 4 NO              Gonzalez     Vicente    &lt;NA&gt;        D     TX    15      
- 5 NO              Sewell       Terri      &lt;NA&gt;        D     AL    7       
- 6 NO              Lawson       Al         &lt;NA&gt;        D     FL    5       
- 7 NO              Johnson      Eddie      Bernice     D     TX    30      
- 8 NO              Horsford     Steven     &lt;NA&gt;        D     NV    4       
- 9 NO              Torres Small Xochitl    &lt;NA&gt;        D     NM    2       
-10 NO              Peterson     Collin     C.          D     MN    7       
-11 NO              Golden       Jared      &lt;NA&gt;        D     ME    2       
-12 NO              O&#39;Halleran   Tom        &lt;NA&gt;        D     AZ    1       
-13 NO              Brindisi     Anthony    &lt;NA&gt;        D     NY    22      
-14 NO              Kind         Ron        &lt;NA&gt;        D     WI    3       
-15 NO              Van Drew     Jefferson  &lt;NA&gt;        D     NJ    2       
-16 NO              Gabbard      Tulsi      &lt;NA&gt;        D     HI    2       
-17 NO              McAdams      Ben        &lt;NA&gt;        D     UT    4       
-18 NO              Schrader     Kurt       &lt;NA&gt;        D     OR    5       
-19 NO              Horn         Kendra     &lt;NA&gt;        D     OK    5       
-# ℹ 25 more variables: date_exact &lt;date&gt;, date_approx_month &lt;date&gt;,
-#   date_comb &lt;date&gt;, date_month &lt;dbl&gt;, date_year &lt;dbl&gt;,
-#   margin_flag_2018 &lt;chr&gt;, flip_2018 &lt;chr&gt;, house_dist &lt;chr&gt;,
-#   keyrace_rating &lt;chr&gt;, median_income &lt;dbl&gt;,
-#   median_income_compared_to_national &lt;chr&gt;, median_age &lt;dbl&gt;,
-#   median_age_compared_to_national &lt;chr&gt;, pct_nonwhite &lt;dbl&gt;,
-#   pct_nonwhite_compared_to_national &lt;chr&gt;, pct_bachelors &lt;dbl&gt;, …</code></pre>
-</div>
-</div>
-<p>For question #9, we are back to just filtering. I just filtered the state NJ and filtered those members in NJ who are not for impeachment.</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 9) Filter for only members from New Jersey who are NO on impeachment</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">&quot;NJ&quot;</span>, for_impeachment <span class="sc">==</span> <span class="st">&quot;NO&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 32
-  for_impeachment last_name first_name middle_name party state district
-  &lt;chr&gt;           &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
-1 NO              Van Drew  Jefferson  &lt;NA&gt;        D     NJ    2       
-# ℹ 25 more variables: date_exact &lt;date&gt;, date_approx_month &lt;date&gt;,
-#   date_comb &lt;date&gt;, date_month &lt;dbl&gt;, date_year &lt;dbl&gt;,
-#   margin_flag_2018 &lt;chr&gt;, flip_2018 &lt;chr&gt;, house_dist &lt;chr&gt;,
-#   keyrace_rating &lt;chr&gt;, median_income &lt;dbl&gt;,
-#   median_income_compared_to_national &lt;chr&gt;, median_age &lt;dbl&gt;,
-#   median_age_compared_to_national &lt;chr&gt;, pct_nonwhite &lt;dbl&gt;,
-#   pct_nonwhite_compared_to_national &lt;chr&gt;, pct_bachelors &lt;dbl&gt;, …</code></pre>
-</div>
-</div>
-<p>For question #10, we use filter and arrange together again. We filter people for impeachment but only for the ones for impeachment before 2019. Then, we arranged the highest Clinton voters from those years prior to 2019.</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 10) Filter for those who were YES on impeachment, with a declared date prior to 2019. So only</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># those with dates before 2019.  Then sort those so that the highest Clinton vote percentages are </span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># at the top.   </span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;YES&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date_year <span class="sc">&lt;</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(clinton_percent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 32
-   for_impeachment last_name first_name middle_name party state district
-   &lt;chr&gt;           &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
- 1 YES             Huffman   Jared      &lt;NA&gt;        D     CA    2       
- 2 YES             Sherman   Brad       &lt;NA&gt;        D     CA    30      
- 3 YES             Moore     Gwen       &lt;NA&gt;        D     WI    4       
- 4 YES             Omar      Ilhan      &lt;NA&gt;        D     MN    5       
- 5 YES             Cohen     Steve      &lt;NA&gt;        D     TN    9       
- 6 YES             Green     Al         &lt;NA&gt;        D     TX    9       
- 7 YES             Fudge     Marcia     L.          D     OH    11      
- 8 YES             Clarke    Yvette     D.          D     NY    9       
- 9 YES             Gomez     Jimmy      &lt;NA&gt;        D     CA    34      
-10 YES             Evans     Dwight     &lt;NA&gt;        D     PA    3       
-# ℹ 25 more variables: date_exact &lt;date&gt;, date_approx_month &lt;date&gt;,
-#   date_comb &lt;date&gt;, date_month &lt;dbl&gt;, date_year &lt;dbl&gt;,
-#   margin_flag_2018 &lt;chr&gt;, flip_2018 &lt;chr&gt;, house_dist &lt;chr&gt;,
-#   keyrace_rating &lt;chr&gt;, median_income &lt;dbl&gt;,
-#   median_income_compared_to_national &lt;chr&gt;, median_age &lt;dbl&gt;,
-#   median_age_compared_to_national &lt;chr&gt;, pct_nonwhite &lt;dbl&gt;,
-#   pct_nonwhite_compared_to_national &lt;chr&gt;, pct_bachelors &lt;dbl&gt;, …</code></pre>
-</div>
-</div>
-<p>Question #11 you really had to look at the wording of the question carefully. When it says “holdout” for impeachment, that is just another way of saying who are for (yes) impeachment for filtering. Additionally, you have to filter the national GDP that was below from each respected districts. Lastly, we use a new term called nrow that will tell the number of rows it was in from the data set.</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 11) Answer this question with a single numeric answer, and show the R code you</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># used to reach that answer: How many members in the dataset who are holdouts on impeachment</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># come from districts with a GDP below the national figure?</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: there&#39;s a function called nrow() that tells you how many rows are in a dataframe</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;YES&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gdp_above_national <span class="sc">==</span> <span class="st">&quot;BELOW&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 83</code></pre>
-</div>
-</div>
+<p><strong>Introduction</strong></p>
+<p>Gaining a thorough understanding of social media algorithms is crucial in contemporary society, given the prominent role of social media platforms in shaping public opinion and individual actions. These algorithms wield considerable influence by determining the content displayed on users’ feeds, utilizing diverse data sources to curate a personalized feed that includes relevant and captivating content for each user. This idea ultimately means that social media algorithms can influence the information that users consume and how they perceive and maneuver through society. By developing a comprehensive understanding of social media algorithms from both technological and sociological perspectives, we can exert control over the power dynamics that exist between these algorithms and their users. This control can lead to a more transparent and fair digital landscape, fostering a society that is better informed. </p>
+<p>This paper investigates three key research questions: How do social media users perceive, comprehend, and respond to social media algorithms?  2) How do these algorithms function in practical terms? 3) What steps can we take to reshape the power dynamics between algorithms and users? The intricate relationship between social media algorithms and social identity highlights the transformative potential of digital platforms. These algorithms not only shape users’ perceptions, preferences, and self-presentation but also impact cultural narratives, amplify marginalized voices, and challenge established power structures. Consequently, they offer opportunities for personal growth, cultural empowerment, and social progress. Social media users perceive, understand, and react to algorithms differently. The user experience depends on their experience, knowledge, and platform interactions. Many users, particularly users of the newer generations, are unaware of the existence and impact of algorithms in shaping their social media experience. I found that many users use algorithms as manipulative tools that prioritize certain content and hide or suppress others, potentially influencing their views and behaviors. </p>
+<p>Social media algorithms have become increasingly powerful in shaping our world, mostly reliant on the digital landscape. </p>
+<p><strong>How do social media users perceive, understand, and react to social media algorithms?</strong></p>
+<p>&quot;Algorithms (and the) every day&quot; by Michele Wilson (2017) discusses how algorithms influence the decisions, experiences, and social interactions of individuals. Wilson highlights algorithms’ significant role in shaping the information and content individuals encounter. The article emphasizes how algorithms selectively filter and personalize information, creating filter bubbles and echo chambers. These algorithmic mechanisms can reinforce existing biases, limit exposure to diverse perspectives, and hinder the formation of well-informed opinions (Wilson, 2017). Supporting this perspective, research by Pariser (2011) and Sunstein (2017) has shown that algorithmic systems tend to amplify existing beliefs and preferences, potentially narrowing individuals&#39; worldviews and inhibiting critical thinking. </p>
+<p>My Account Content Log indicates that my TikTok algorithm is heavily filtered and personalized to my interests, but I disagree with the idea that it narrows my worldview and critical thinking. While I acknowledge that my TikTok algorithm has created an echo chamber by showing content that mainly aligns with my beliefs and preferences, my algorithm reinforces my identity and values as a Black woman and as a student, which supports me in maintaining a healthy sense of self. For instance, seeing consistent content from Black social media influencers, Black leaders, politicians, educators, graduates, etc., are all consistent representations of myself, which promotes a diverse and inclusive online ecosystem without suppressing the viewpoints of others. </p>
+<p>&quot;Algorithmic Folk Theories and Identity: How TikTok Users Co-Produce Knowledge of Identity and Engage in Algorithmic Resistance&quot; article discusses the ways algorithms and the identities of users correlate in digital spaces. In their study, Karizat et al. (2021) explore how TikTok users co-produce knowledge of identity and engage in algorithmic resistance on the platform. By employing a mixed-methods approach, including surveys, interviews, and content analysis, the researchers delve into the complex dynamics between algorithmic systems, user experiences, and identity construction. The research highlights the concept of algorithmic resistance, where users intentionally challenge or subvert the algorithm&#39;s influence on their content and identity. This resistance takes various forms, such as diversifying content consumption, collaborating with others, and deliberately creating content that disrupts algorithmic expectations. By engaging in algorithmic resistance, users exert agency and actively shape their experiences on the platform. The findings of this study contribute to our understanding of the intricate relationship between algorithmic systems and user identity on TikTok. It underscores the active role played by users in co-producing knowledge about identity and navigating the algorithmic affordances of the platform. By shedding light on these processes, the research offers valuable insights into how users negotiate their identities and exercise agency within algorithmic environments.</p>
+<p> Social media algorithms are beyond the consumption of information; they begin to shape the self-perception of individuals and construct social identities. Research by other scholars has highlighted how algorithms meditate identity presentation and influence social dynamics within online platforms. Wilson (2017) discusses how algorithms shape users&#39; understanding of themselves and others. By analyzing user data and behavior, algorithms contribute to personalized experiences and targeting advertising. Thus, online communities are formed based on shared interests and preferences. However, concerns arise regarding the potential for algorithmic systems to reinforce stereotypes and contribute to self-segregation.</p>
+<p>Wilson (2017) emphasized the importance of transparency, accountability, and responsible use of algorithms in order to cultivate an informed society in the digital era. The functioning of algorithms is often obscure, creating difficulties for individuals to discern their inherent biases and workings. This lack of transparency can lead to concerns about autonomy and discrimination. Wilson&#39;s article reinforces the significance of algorithms in shaping everyday life experiences. His findings highlight the potential consequences of algorithmic systems, including the formation of filter bubbles, the impact on identity construction, and the ethical challenges they present. While algorithms offer benefits such as efficiency and personalization, he calls for critical examination and responsible practice to ensure transparency, fairness, and accountability. Overall, Wilson&#39;s article provides valuable insight into my ethnographic research on the impact of algorithms on the social identity of individuals in contemporary society. Additionally, Wilson&#39;s article helps me weigh the pros and cons of whether or not algorithms empower social identity online or if it weakens our understanding of diverse perspectives.</p>
+<p><strong>How do these algorithms actually operate in practice?</strong></p>
+<p>While social media algorithms can introduce biases and ethical dilemmas, I argue that they also possess the capability to enrich social identity by offering individuals a platform to discover increased representation that might be lacking in conventional societal contexts. Given the current era where social media holds considerable influence as a source of news and information, it becomes vital to assess the extent to which users are exposed to a diverse range of ideological content. &quot;Exposure to ideologically diverse news and opinion on Facebook,&quot; published in Science, explores the correlation between social media consumption and political polarization. While personalized social media algorithms have been scrutinized and criticized, this article suggests a couple of benefits. 1) personalized algorithms can potentially introduce users to a broader range of information, allowing them to encounter different perspectives and expand their understanding of topics. 2) Personalized algorithms can help tailor content to individual interests and preferences, creating a more personalized and relevant user experience. By analyzing users&#39; behavior, interactions, and preferences, algorithms can curate content that aligns with their specific interests, potentially enhancing user satisfaction and engagement. The personalized nature of social media algorithms contributes to a more enjoyable user experience by presenting content that aligns with individual interests and preferences. This concept can be likened to Black American students who choose to attend Historically Black Colleges and Universities, seeking a personalized educational experience that reflects their social and racial identity.</p>
+<p>Moreover, the discussed article delves into the influence of social media algorithms on user experiences, examining the psychological and emotional dimensions such as satisfaction, engagement, and overall well-being. The researchers inform my understanding of the role of social media algorithms in facilitating social interactions and the formation of social identities. However, on the other hand, &quot;The Filter Bubble: What the Internet is Hiding from You&quot; (2011) argues that personalized algorithms enhance information discovery. By analyzing user behavior and interests, algorithms surface content that users will likely find interesting and valuable. This process exposes users to a wider range of topics, perspectives, and sources, expanding their knowledge and understanding deeper discovery. Thus, personalized algorithms are crucial in overcoming information overload and enabling efficient exploration of diverse content. </p>
+<p>A study by Matias et al. (2017) emphasizes the positive impact of personalized social media algorithms on user engagement. By presenting users with content that aligns with their preferences, algorithms create an environment where users feel connected and invested, contributing to a vibrant and active social media ecosystem. </p>
+<p>Another benefit of personalized social media algorithms is their role in targeted advertising and monetization. Research by Dellarocas et al. (2019) suggests that algorithms that understand users&#39; preferences and behaviors can deliver more relevant and effective advertisements. This targeted approach benefits advertisers and users by presenting them with advertisements that align with their interests and needs. Furthermore, highlights the benefits of personalized social media algorithms in information consumption and user experience. In February, I came across several Makeup advertisements by Revlon and L&#39;oreal Paris featuring Black celebrities– rapper Megan Thee Stallion and actress Viola Davis. Black representation is not often seen in mainstream media for big makeup brands like Revlon and L&#39;oreal, I find it ​​important to see diverse backgrounds, challenging homogeneity and promoting a more inclusive and equitable discourse. Moreover, I found it empowering because it amplifies the women’s voices in the Black community and challenges negative stereotypes.</p>
+<p><img src="data:text/html; charset=UTF-8;charset=utf-8,%3C%21DOCTYPE%20html%3E%0A%3Chtml%20lang%3Den%3E%0A%20%20%3Cmeta%20charset%3Dutf%2D8%3E%0A%20%20%3Cmeta%20name%3Dviewport%20content%3D%22initial%2Dscale%3D1%2C%20minimum%2Dscale%3D1%2C%20width%3Ddevice%2Dwidth%22%3E%0A%20%20%3Ctitle%3EError%20400%20%28Bad%20Request%29%21%211%3C%2Ftitle%3E%0A%20%20%3Cstyle%3E%0A%20%20%20%20%2A%7Bmargin%3A0%3Bpadding%3A0%7Dhtml%2Ccode%7Bfont%3A15px%2F22px%20arial%2Csans%2Dserif%7Dhtml%7Bbackground%3A%23fff%3Bcolor%3A%23222%3Bpadding%3A15px%7Dbody%7Bmargin%3A7%25%20auto%200%3Bmax%2Dwidth%3A390px%3Bmin%2Dheight%3A180px%3Bpadding%3A30px%200%2015px%7D%2A%20%3E%20body%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Ferrors%2Frobot%2Epng%29%20100%25%205px%20no%2Drepeat%3Bpadding%2Dright%3A205px%7Dp%7Bmargin%3A11px%200%2022px%3Boverflow%3Ahidden%7Dins%7Bcolor%3A%23777%3Btext%2Ddecoration%3Anone%7Da%20img%7Bborder%3A0%7D%40media%20screen%20and%20%28max%2Dwidth%3A772px%29%7Bbody%7Bbackground%3Anone%3Bmargin%2Dtop%3A0%3Bmax%2Dwidth%3Anone%3Bpadding%2Dright%3A0%7D%7D%23logo%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F1x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%20no%2Drepeat%3Bmargin%2Dleft%3A%2D5px%7D%40media%20only%20screen%20and%20%28min%2Dresolution%3A192dpi%29%7B%23logo%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F2x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%20no%2Drepeat%200%25%200%25%2F100%25%20100%25%3B%2Dmoz%2Dborder%2Dimage%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F2x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%200%7D%7D%40media%20only%20screen%20and%20%28%2Dwebkit%2Dmin%2Ddevice%2Dpixel%2Dratio%3A2%29%7B%23logo%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F2x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%20no%2Drepeat%3B%2Dwebkit%2Dbackground%2Dsize%3A100%25%20100%25%7D%7D%23logo%7Bdisplay%3Ainline%2Dblock%3Bheight%3A54px%3Bwidth%3A150px%7D%0A%20%20%3C%2Fstyle%3E%0A%20%20%3Ca%20href%3D%2F%2Fwww%2Egoogle%2Ecom%2F%3E%3Cspan%20id%3Dlogo%20aria%2Dlabel%3DGoogle%3E%3C%2Fspan%3E%3C%2Fa%3E%0A%20%20%3Cp%3E%3Cb%3E400%2E%3C%2Fb%3E%20%3Cins%3EThat%E2%80%99s%20an%20error%2E%3C%2Fins%3E%0A%20%20%3Cp%3EYour%20client%20has%20issued%20a%20malformed%20or%20illegal%20request%2E%20%20%3Cins%3EThat%E2%80%99s%20all%20we%20know%2E%3C%2Fins%3E%0A" class="img-fluid"><img src="data:text/html; charset=UTF-8;charset=utf-8,%3C%21DOCTYPE%20html%3E%0A%3Chtml%20lang%3Den%3E%0A%20%20%3Cmeta%20charset%3Dutf%2D8%3E%0A%20%20%3Cmeta%20name%3Dviewport%20content%3D%22initial%2Dscale%3D1%2C%20minimum%2Dscale%3D1%2C%20width%3Ddevice%2Dwidth%22%3E%0A%20%20%3Ctitle%3EError%20400%20%28Bad%20Request%29%21%211%3C%2Ftitle%3E%0A%20%20%3Cstyle%3E%0A%20%20%20%20%2A%7Bmargin%3A0%3Bpadding%3A0%7Dhtml%2Ccode%7Bfont%3A15px%2F22px%20arial%2Csans%2Dserif%7Dhtml%7Bbackground%3A%23fff%3Bcolor%3A%23222%3Bpadding%3A15px%7Dbody%7Bmargin%3A7%25%20auto%200%3Bmax%2Dwidth%3A390px%3Bmin%2Dheight%3A180px%3Bpadding%3A30px%200%2015px%7D%2A%20%3E%20body%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Ferrors%2Frobot%2Epng%29%20100%25%205px%20no%2Drepeat%3Bpadding%2Dright%3A205px%7Dp%7Bmargin%3A11px%200%2022px%3Boverflow%3Ahidden%7Dins%7Bcolor%3A%23777%3Btext%2Ddecoration%3Anone%7Da%20img%7Bborder%3A0%7D%40media%20screen%20and%20%28max%2Dwidth%3A772px%29%7Bbody%7Bbackground%3Anone%3Bmargin%2Dtop%3A0%3Bmax%2Dwidth%3Anone%3Bpadding%2Dright%3A0%7D%7D%23logo%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F1x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%20no%2Drepeat%3Bmargin%2Dleft%3A%2D5px%7D%40media%20only%20screen%20and%20%28min%2Dresolution%3A192dpi%29%7B%23logo%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F2x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%20no%2Drepeat%200%25%200%25%2F100%25%20100%25%3B%2Dmoz%2Dborder%2Dimage%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F2x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%200%7D%7D%40media%20only%20screen%20and%20%28%2Dwebkit%2Dmin%2Ddevice%2Dpixel%2Dratio%3A2%29%7B%23logo%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F2x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%20no%2Drepeat%3B%2Dwebkit%2Dbackground%2Dsize%3A100%25%20100%25%7D%7D%23logo%7Bdisplay%3Ainline%2Dblock%3Bheight%3A54px%3Bwidth%3A150px%7D%0A%20%20%3C%2Fstyle%3E%0A%20%20%3Ca%20href%3D%2F%2Fwww%2Egoogle%2Ecom%2F%3E%3Cspan%20id%3Dlogo%20aria%2Dlabel%3DGoogle%3E%3C%2Fspan%3E%3C%2Fa%3E%0A%20%20%3Cp%3E%3Cb%3E400%2E%3C%2Fb%3E%20%3Cins%3EThat%E2%80%99s%20an%20error%2E%3C%2Fins%3E%0A%20%20%3Cp%3EYour%20client%20has%20issued%20a%20malformed%20or%20illegal%20request%2E%20%20%3Cins%3EThat%E2%80%99s%20all%20we%20know%2E%3C%2Fins%3E%0A" class="img-fluid"></p>
+<p><br>
+</p>
+<p><strong>Hypothesis</strong></p>
+<p>The algorithmic personalization of TikTok content reinforces existing social hierarchies and perpetuates echo chambers among users. This hypothesis suggests that TikTok algorithms contribute to the reinforcement of social hierarchies and the creation of echo chambers within the platform. The algorithms are designed to tailor content recommendations based on user preferences and behaviors. However, this personalization may lead to narrowing perspectives and amplifying existing biases and preferences. Users are more likely to be exposed to content that aligns with their beliefs, interests, and identities, reinforcing their own views and limited exposure to diverse perspectives. </p>
+<p>The hypothesis proposes that the algorithmic personalization of TikTok content may result in the formation of echo chambers, where users primarily interact with like-minded individuals and are less exposed to alternative viewpoints. This can further entrench social divisions and reinforce existing social hierarchies based on race, gender, socioeconomic status, and other identity markers. The algorithmic recommendations may prioritize popular or trending content, potentially overshadowing marginalized voices and perpetuating inequalities in representation.</p>
+<p><strong>Methodology</strong></p>
+<p>To investigate this hypothesis, I created a new TikTok account to examine user engagement patterns, content diversity, and the potential impact of algorithmic recommendations on reinforcing social hierarchies and forming echo chambers on a new TikTok account. Data metrics from email addresses and locations are essential components that influence TokTok&#39;s recommendation algorithms. On the new TikTok account, I created a burner device with a new Apple ID email address. I was based in Washington, D.C., in the Foggy Bottom neighborhood near George Washington University during this research study.</p>
+<p><strong>Findings</strong></p>
+<p> TikTok primarily introduced me to content from popular social media influencers, including advertisements regarding student life, school, and education. Without engaging with any content (liking, commenting, or reposting) on the new TikTok account or allowing my contacts to find my new account, I found that TikTok may have been using data from the new Apple ID which I used to create the new account. The information associated with my Apple ID is my personal information, such as my name and age. Other important information included device information, usage of other apps, and location data. Much of the content on the burner account pertained to &quot;Student life&quot; throughout the study. I believe that TikTok used the data from my Apple ID and university location to recommend content that users with similar data metrics have engaged with. Student life and school-related content are popular and trending on TikTok due to finals, midterms, and graduation season. </p>
+<p><br>
+</p>
+<p>The new TikTok account I studied became an echo chamber where I was essentially exposed to content relating to educational institutions, student life, and other academic topics that varied across different education levels. The echo chamber positively represented a sense of community and support among students, providing a platform for sharing experiences, offering advice, and building connections with peers in similar educational contexts. While echo chambers can reinforce biases and limited perspectives, I found that &quot;student TikTok&quot; did not include content that aligned with political or social viewpoints. I found the content to be very inclusive of all demographics as they discussed the shared experiences of a student in a learning environment. However, the &quot;Student TikTok&quot; echo chamber perpetuated certain realistic narratives and beliefs about students’ lifestyles that can also be misleading for immature viewers. The platform&#39;s algorithm did contribute to the dissemination of false or misleading information regarding misleading academic advice, academic shortcuts, fabricated school experiences, bad behavior, and COVID-19 misinformation, but in a rather comedic way. </p>
+<p><img src="data:text/html; charset=UTF-8;charset=utf-8,%3C%21DOCTYPE%20html%3E%0A%3Chtml%20lang%3Den%3E%0A%20%20%3Cmeta%20charset%3Dutf%2D8%3E%0A%20%20%3Cmeta%20name%3Dviewport%20content%3D%22initial%2Dscale%3D1%2C%20minimum%2Dscale%3D1%2C%20width%3Ddevice%2Dwidth%22%3E%0A%20%20%3Ctitle%3EError%20400%20%28Bad%20Request%29%21%211%3C%2Ftitle%3E%0A%20%20%3Cstyle%3E%0A%20%20%20%20%2A%7Bmargin%3A0%3Bpadding%3A0%7Dhtml%2Ccode%7Bfont%3A15px%2F22px%20arial%2Csans%2Dserif%7Dhtml%7Bbackground%3A%23fff%3Bcolor%3A%23222%3Bpadding%3A15px%7Dbody%7Bmargin%3A7%25%20auto%200%3Bmax%2Dwidth%3A390px%3Bmin%2Dheight%3A180px%3Bpadding%3A30px%200%2015px%7D%2A%20%3E%20body%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Ferrors%2Frobot%2Epng%29%20100%25%205px%20no%2Drepeat%3Bpadding%2Dright%3A205px%7Dp%7Bmargin%3A11px%200%2022px%3Boverflow%3Ahidden%7Dins%7Bcolor%3A%23777%3Btext%2Ddecoration%3Anone%7Da%20img%7Bborder%3A0%7D%40media%20screen%20and%20%28max%2Dwidth%3A772px%29%7Bbody%7Bbackground%3Anone%3Bmargin%2Dtop%3A0%3Bmax%2Dwidth%3Anone%3Bpadding%2Dright%3A0%7D%7D%23logo%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F1x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%20no%2Drepeat%3Bmargin%2Dleft%3A%2D5px%7D%40media%20only%20screen%20and%20%28min%2Dresolution%3A192dpi%29%7B%23logo%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F2x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%20no%2Drepeat%200%25%200%25%2F100%25%20100%25%3B%2Dmoz%2Dborder%2Dimage%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F2x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%200%7D%7D%40media%20only%20screen%20and%20%28%2Dwebkit%2Dmin%2Ddevice%2Dpixel%2Dratio%3A2%29%7B%23logo%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F2x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%20no%2Drepeat%3B%2Dwebkit%2Dbackground%2Dsize%3A100%25%20100%25%7D%7D%23logo%7Bdisplay%3Ainline%2Dblock%3Bheight%3A54px%3Bwidth%3A150px%7D%0A%20%20%3C%2Fstyle%3E%0A%20%20%3Ca%20href%3D%2F%2Fwww%2Egoogle%2Ecom%2F%3E%3Cspan%20id%3Dlogo%20aria%2Dlabel%3DGoogle%3E%3C%2Fspan%3E%3C%2Fa%3E%0A%20%20%3Cp%3E%3Cb%3E400%2E%3C%2Fb%3E%20%3Cins%3EThat%E2%80%99s%20an%20error%2E%3C%2Fins%3E%0A%20%20%3Cp%3EYour%20client%20has%20issued%20a%20malformed%20or%20illegal%20request%2E%20%20%3Cins%3EThat%E2%80%99s%20all%20we%20know%2E%3C%2Fins%3E%0A" class="img-fluid"><img src="data:text/html; charset=UTF-8;charset=utf-8,%3C%21DOCTYPE%20html%3E%0A%3Chtml%20lang%3Den%3E%0A%20%20%3Cmeta%20charset%3Dutf%2D8%3E%0A%20%20%3Cmeta%20name%3Dviewport%20content%3D%22initial%2Dscale%3D1%2C%20minimum%2Dscale%3D1%2C%20width%3Ddevice%2Dwidth%22%3E%0A%20%20%3Ctitle%3EError%20400%20%28Bad%20Request%29%21%211%3C%2Ftitle%3E%0A%20%20%3Cstyle%3E%0A%20%20%20%20%2A%7Bmargin%3A0%3Bpadding%3A0%7Dhtml%2Ccode%7Bfont%3A15px%2F22px%20arial%2Csans%2Dserif%7Dhtml%7Bbackground%3A%23fff%3Bcolor%3A%23222%3Bpadding%3A15px%7Dbody%7Bmargin%3A7%25%20auto%200%3Bmax%2Dwidth%3A390px%3Bmin%2Dheight%3A180px%3Bpadding%3A30px%200%2015px%7D%2A%20%3E%20body%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Ferrors%2Frobot%2Epng%29%20100%25%205px%20no%2Drepeat%3Bpadding%2Dright%3A205px%7Dp%7Bmargin%3A11px%200%2022px%3Boverflow%3Ahidden%7Dins%7Bcolor%3A%23777%3Btext%2Ddecoration%3Anone%7Da%20img%7Bborder%3A0%7D%40media%20screen%20and%20%28max%2Dwidth%3A772px%29%7Bbody%7Bbackground%3Anone%3Bmargin%2Dtop%3A0%3Bmax%2Dwidth%3Anone%3Bpadding%2Dright%3A0%7D%7D%23logo%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F1x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%20no%2Drepeat%3Bmargin%2Dleft%3A%2D5px%7D%40media%20only%20screen%20and%20%28min%2Dresolution%3A192dpi%29%7B%23logo%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F2x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%20no%2Drepeat%200%25%200%25%2F100%25%20100%25%3B%2Dmoz%2Dborder%2Dimage%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F2x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%200%7D%7D%40media%20only%20screen%20and%20%28%2Dwebkit%2Dmin%2Ddevice%2Dpixel%2Dratio%3A2%29%7B%23logo%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F2x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%20no%2Drepeat%3B%2Dwebkit%2Dbackground%2Dsize%3A100%25%20100%25%7D%7D%23logo%7Bdisplay%3Ainline%2Dblock%3Bheight%3A54px%3Bwidth%3A150px%7D%0A%20%20%3C%2Fstyle%3E%0A%20%20%3Ca%20href%3D%2F%2Fwww%2Egoogle%2Ecom%2F%3E%3Cspan%20id%3Dlogo%20aria%2Dlabel%3DGoogle%3E%3C%2Fspan%3E%3C%2Fa%3E%0A%20%20%3Cp%3E%3Cb%3E400%2E%3C%2Fb%3E%20%3Cins%3EThat%E2%80%99s%20an%20error%2E%3C%2Fins%3E%0A%20%20%3Cp%3EYour%20client%20has%20issued%20a%20malformed%20or%20illegal%20request%2E%20%20%3Cins%3EThat%E2%80%99s%20all%20we%20know%2E%3C%2Fins%3E%0A" class="img-fluid"><img src="data:text/html; charset=UTF-8;charset=utf-8,%3C%21DOCTYPE%20html%3E%0A%3Chtml%20lang%3Den%3E%0A%20%20%3Cmeta%20charset%3Dutf%2D8%3E%0A%20%20%3Cmeta%20name%3Dviewport%20content%3D%22initial%2Dscale%3D1%2C%20minimum%2Dscale%3D1%2C%20width%3Ddevice%2Dwidth%22%3E%0A%20%20%3Ctitle%3EError%20400%20%28Bad%20Request%29%21%211%3C%2Ftitle%3E%0A%20%20%3Cstyle%3E%0A%20%20%20%20%2A%7Bmargin%3A0%3Bpadding%3A0%7Dhtml%2Ccode%7Bfont%3A15px%2F22px%20arial%2Csans%2Dserif%7Dhtml%7Bbackground%3A%23fff%3Bcolor%3A%23222%3Bpadding%3A15px%7Dbody%7Bmargin%3A7%25%20auto%200%3Bmax%2Dwidth%3A390px%3Bmin%2Dheight%3A180px%3Bpadding%3A30px%200%2015px%7D%2A%20%3E%20body%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Ferrors%2Frobot%2Epng%29%20100%25%205px%20no%2Drepeat%3Bpadding%2Dright%3A205px%7Dp%7Bmargin%3A11px%200%2022px%3Boverflow%3Ahidden%7Dins%7Bcolor%3A%23777%3Btext%2Ddecoration%3Anone%7Da%20img%7Bborder%3A0%7D%40media%20screen%20and%20%28max%2Dwidth%3A772px%29%7Bbody%7Bbackground%3Anone%3Bmargin%2Dtop%3A0%3Bmax%2Dwidth%3Anone%3Bpadding%2Dright%3A0%7D%7D%23logo%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F1x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%20no%2Drepeat%3Bmargin%2Dleft%3A%2D5px%7D%40media%20only%20screen%20and%20%28min%2Dresolution%3A192dpi%29%7B%23logo%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F2x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%20no%2Drepeat%200%25%200%25%2F100%25%20100%25%3B%2Dmoz%2Dborder%2Dimage%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F2x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%200%7D%7D%40media%20only%20screen%20and%20%28%2Dwebkit%2Dmin%2Ddevice%2Dpixel%2Dratio%3A2%29%7B%23logo%7Bbackground%3Aurl%28%2F%2Fwww%2Egoogle%2Ecom%2Fimages%2Fbranding%2Fgooglelogo%2F2x%2Fgooglelogo%5Fcolor%5F150x54dp%2Epng%29%20no%2Drepeat%3B%2Dwebkit%2Dbackground%2Dsize%3A100%25%20100%25%7D%7D%23logo%7Bdisplay%3Ainline%2Dblock%3Bheight%3A54px%3Bwidth%3A150px%7D%0A%20%20%3C%2Fstyle%3E%0A%20%20%3Ca%20href%3D%2F%2Fwww%2Egoogle%2Ecom%2F%3E%3Cspan%20id%3Dlogo%20aria%2Dlabel%3DGoogle%3E%3C%2Fspan%3E%3C%2Fa%3E%0A%20%20%3Cp%3E%3Cb%3E400%2E%3C%2Fb%3E%20%3Cins%3EThat%E2%80%99s%20an%20error%2E%3C%2Fins%3E%0A%20%20%3Cp%3EYour%20client%20has%20issued%20a%20malformed%20or%20illegal%20request%2E%20%20%3Cins%3EThat%E2%80%99s%20all%20we%20know%2E%3C%2Fins%3E%0A" class="img-fluid"></p>
+<p><strong>Discussion</strong></p>
+<p>&quot;Amplification and its Discontents: Why Regulating the Reach of Online Content is Hard&quot; is an article by David Keller that delves into the challenges of regulating online content due to the complex interplay of technological, legal, and ethical factors. Keller discusses the role of algorithms in shaping public discourse and the spread of information. He highlights the tension between the desire to curb the negative consequences of amplification, such as the spread of misinformation or harmful content, and the importance of protecting free speech and promoting a diverse marketplace of ideas. This article informs me of the ongoing content moderation and free speech argument. While I do understand the importance of impeding the spread of content that can be harmful and incite destructive behaviors, I still believe that content producers should still be able to express themselves and their sense of humor freely. </p>
+<p>Throughout the article, Keller emphasizes the issue&#39;s intricate nature and the trade-offs in regulating the reach of online content. He argues that any regulatory interventions should carefully balance the goals of promoting user safety, mitigating harmful effects, and preserving free expression; additionally, he calls for interdisciplinary collaboration and engagement between various stakeholders, including policymakers, platform operators, researchers, and Civil Society to develop nuanced and practical solutions. In the debate about how TikTok balances the need to moderate harmful content while respecting users&#39; rights to freedom of expression, I argue that the algorithmic nature of TikTok&#39;s content distribution can inadvertently reinforce existing biases by amplifying certain voices, and in this case, the voices of students. Social media platforms such as TikTok can use transparency, accountability, and user empowerment to ensure that free expression is upheld while mitigating potential harm.</p>
+<p> The echo chamber positively represents a sense of community and support among students, providing a platform for sharing experiences, offering advice, and building connections with peers in similar educational contexts. While echo chambers can reinforce biases and limited perspectives, I found that &quot;Student TikTok&quot; did not include content that aligned with political or social viewpoints. I found the content to be very inclusive of all demographics as they discussed the shared experiences of a student in a learning environment. </p>
+<p><strong>Conclusion</strong></p>
+<p>Understanding the function of algorithms is crucial in today&#39;s digital age for several reasons: informed decision-making and societal implications beyond individual user experiences. In summary, understanding the function of algorithms is essential to make informed decisions, protecting privacy, holding platforms accountable, and navigating the complex dynamics of digital platforms. It empowers individuals to actively engage with technology in a meaningful way, mitigate potential risk and promote a more transparent and user-centric digital ecosystem.</p>
+<p>While personalized social media algorithms can create filter bubbles and echo chambers where users are isolated from diverse perspectives, it enormously benefits users in various ways. Many users find their TikTok algorithms a safe community with like-minded individuals from underrepresented niches with voices that do not always reach mainstream media or more diverse algorithms. To reshape the dynamic between social media and users, we can encourage developing and implementing an algorithmic design that prioritizes diversity, equity, and inclusion. This involves considering algorithms&#39; potential biases and impacts on marginalized groups and actively working to mitigate any adverse effects. This approach requires a proactive commitment to addressing biases, promoting fairness, and ongoing monitoring and adaptation as societal norms and understandings evolve.</p>
+<p>Social media algorithms can significantly influence individuals&#39; self-perception and identity construction through the influence of influencers. Social media platforms often provide a space where users showcase the highlights of their lives, emphasizing positive experiences, achievements, and happiness. Algorithms often create echo chambers by showing users content aligning with their beliefs and preferences. This can reinforce identities, values, or biases while limiting exposure to diverse perspectives and alternative viewpoints. Users may become more entrenched in their echo chambers, leading to a narrowing of their worldview and a reinforcement of their existing identity constructs. </p>
+<p>A stronger understanding of social media algorithms can result in a more informed and empowered society. Awareness of personalized content can encourage users to actively seek and engage with content outside of their filter bubbles promoting a balanced perspective. Secondly, with media literacy and further knowledge about social media algorithms, users can recognize when they are being presented with misinformation and evaluate the credibility of the content producer. Lastly, after studying the effects of social media algorithms, students and organizations can advocate and raise awareness of the potential consequences of echo chambers, polarization, and the dissemination of misinformation. </p>
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</p>
+<p>References</p>
+<p>Bakshy, E., Eckles, D., &amp; Messing, S. (2015). Exposure to ideologically diverse news and opinion on Facebook. Science, 348(6239), 1130-1132. doi: 10.1126/science.aaa1160</p>
+<p>Felzmann, H., Fosch-Villaronga, E., Lutz, C., &amp; Tamò-Larrieux, A. (2020). Towards transparency by design for artificial intelligence. Science and Engineering Ethics, 26(6), 3333-3361. doi: 10.1007/s11948-020-00276-4</p>
+<p>Karizat, N., Delmonaco, D., Eslami, M., &amp; Andalibi, N. (2021). Algorithmic Folk Theories and Identity: How TikTok Users Co-Produce Knowledge of Identity and Engage in Algorithmic Resistance. Proceedings of the ACM on Human-Computer Interaction, 5(CSCW2), Article 305. https://doi.org/10.1145/3476046</p>
+<p>Keller, D. (2021). Amplification and its discontents: Why regulating the reach of online content is hard. Journal of Free Speech Law, 1, 227-268. Retrieved from https://www.journaloffreespeechlaw.org/keller.pdf</p>
+<p>Klonick, K. (2020). The Facebook Oversight Board: Creating an independent institution to adjudicate online free expression. Yale Law Journal, 129(2418). Retrieved from <a href="https://ssrn.com/abstract=3639234" class="uri">https://ssrn.com/abstract=3639234</a></p>
+<p>Pariser, E. (2011). The Filter Bubble: What the Internet is Hiding from You. The Penguin Press.</p>
+<p>Swart, J. (2021). Experiencing algorithms: How young people understand, feel about, and engage with algorithmic news selection on social media. Social Media + Society, 7(2), 20563051211008828. doi: 10.1177/20563051211008828</p>
+<p>Tufekci, Z. (2014). Engineering the public: Big data, surveillance and computational politics. First Monday, 19(7). Retrieved from https://firstmonday.org/ojs/index.php/fm/article/view/4901</p>
+<p>Wilson, M. (2017). Algorithms (and the) everyday. Information, Communication &amp; Society, 20(1), 137-150. doi: 10.1080/1369118X.2016.1149208</p>
 
 
 <!-- -->
@@ -4680,183 +4309,117 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
-<div class="sourceCode" id="cb30" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Analysis Walkthrough&quot;</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> &quot;Kiarra Pearson&quot;</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co">    self-contained: true</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>we&#39;ll start by loading our libraries.</span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a><span class="co">#first we&#39;ll load our libraries</span></span>
-<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="co">#make sure to install the tidyverse if it&#39;s not already installed</span></span>
-<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a>We’re going to look at some sample data from Texas on housing prices throughout the state.</span>
-<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a>First, we will load the data.</span>
-<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb30-38"><a href="#cb30-38" aria-hidden="true" tabindex="-1"></a><span class="co"># run this line below load the data for this assignment</span></span>
-<span id="cb30-39"><a href="#cb30-39" aria-hidden="true" tabindex="-1"></a>impeach <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vRh8d5JaDqBtByzNw2JZF3idaACobDhhk-p7chJoktA0HawELHFOvjQOqCpzGA4MGONvPlR7GASqW-K/pub?gid=1765341510&amp;single=true&amp;output=csv&quot;</span>)</span>
-<span id="cb30-40"><a href="#cb30-40" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-42"><a href="#cb30-42" aria-hidden="true" tabindex="-1"></a>We are going to see a data file called “impeach” and see which members support impeachment or not.</span>
-<span id="cb30-43"><a href="#cb30-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-46"><a href="#cb30-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb30-47"><a href="#cb30-47" aria-hidden="true" tabindex="-1"></a><span class="co"># it will load a dataframe called &quot;impeach,&quot; containing U.S. House Democrats</span></span>
-<span id="cb30-48"><a href="#cb30-48" aria-hidden="true" tabindex="-1"></a><span class="co"># and whether they supported impeachment along with when they announced such support</span></span>
-<span id="cb30-49"><a href="#cb30-49" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb30-50"><a href="#cb30-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-51"><a href="#cb30-51" aria-hidden="true" tabindex="-1"></a>Now use the R codes we have learned throughout class. Note: You are going to see this symbol “%&gt;%.” This symbol is a pipe operator we use in R. It takes the output of one function and passes it into another function as an argument. This allows us to link a sequence of analysis steps.</span>
-<span id="cb30-52"><a href="#cb30-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-55"><a href="#cb30-55" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb30-56"><a href="#cb30-56" aria-hidden="true" tabindex="-1"></a><span class="co"># FOR EACH OF THE QUESTIONS BELOW, WRITE YOUR WORKING R CODE TO RETURN THE REQUESTED RESULTS</span></span>
-<span id="cb30-57"><a href="#cb30-57" aria-hidden="true" tabindex="-1"></a><span class="co"># USE COMMENTS (PREFACED BY THE #) TO ACCOMPANY YOUR CODE TO EXPLAIN WHAT YOU&#39;RE DOING </span></span>
-<span id="cb30-58"><a href="#cb30-58" aria-hidden="true" tabindex="-1"></a><span class="co"># FOR EACH STEP</span></span>
-<span id="cb30-59"><a href="#cb30-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb30-60"><a href="#cb30-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-61"><a href="#cb30-61" aria-hidden="true" tabindex="-1"></a>From the data we are given, we will first find for the members who have favored in impeachment. Therefore, we will first write impeach that is the datasheet we will be using for this whole exercise. After that we will use the filter option and put “no” for impeachment and run it.</span>
-<span id="cb30-62"><a href="#cb30-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-65"><a href="#cb30-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb30-66"><a href="#cb30-66" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) The column &quot;for_impeachment&quot; indicates whether the member has publicly called for</span></span>
-<span id="cb30-67"><a href="#cb30-67" aria-hidden="true" tabindex="-1"></a><span class="co"># an impeachment inquiry. Filter to return only the ones where the answer is NO.    </span></span>
-<span id="cb30-68"><a href="#cb30-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-69"><a href="#cb30-69" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb30-70"><a href="#cb30-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;NO&quot;</span>)</span>
-<span id="cb30-71"><a href="#cb30-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb30-72"><a href="#cb30-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-73"><a href="#cb30-73" aria-hidden="true" tabindex="-1"></a>We do the same thing here with question #1, but we add Republican party that Trump won in 2016 and run it.</span>
-<span id="cb30-74"><a href="#cb30-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-77"><a href="#cb30-77" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb30-78"><a href="#cb30-78" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Filter to return only results where a member is both against impeachment, and comes from a </span></span>
-<span id="cb30-79"><a href="#cb30-79" aria-hidden="true" tabindex="-1"></a><span class="co"># district that President Trump won in 2016 (which is noted in the &quot;p16winningparty&quot; column)</span></span>
-<span id="cb30-80"><a href="#cb30-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-81"><a href="#cb30-81" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb30-82"><a href="#cb30-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;NO&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-83"><a href="#cb30-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p16winningparty <span class="sc">==</span> <span class="st">&quot;R&quot;</span>)</span>
-<span id="cb30-84"><a href="#cb30-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb30-85"><a href="#cb30-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-86"><a href="#cb30-86" aria-hidden="true" tabindex="-1"></a>Same here, but we add an addition to the Republican Mitt Romney carried in 2012.</span>
-<span id="cb30-87"><a href="#cb30-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-90"><a href="#cb30-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb30-91"><a href="#cb30-91" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Filter for only results where a member is against impeachment, comes from a </span></span>
-<span id="cb30-92"><a href="#cb30-92" aria-hidden="true" tabindex="-1"></a><span class="co"># district that President Trump won in 2016 (which is noted in the &quot;p16winningparty&quot; column),</span></span>
-<span id="cb30-93"><a href="#cb30-93" aria-hidden="true" tabindex="-1"></a><span class="co"># and also comes from a district that Mitt Romney won in 2012 (&quot;p12winningparty&quot;).</span></span>
-<span id="cb30-94"><a href="#cb30-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-95"><a href="#cb30-95" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb30-96"><a href="#cb30-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;NO&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-97"><a href="#cb30-97" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p16winningparty <span class="sc">==</span> <span class="st">&quot;R&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-98"><a href="#cb30-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p12winningparty <span class="sc">==</span> <span class="st">&quot;R&quot;</span>)</span>
-<span id="cb30-99"><a href="#cb30-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb30-100"><a href="#cb30-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-101"><a href="#cb30-101" aria-hidden="true" tabindex="-1"></a>For question #4, we are going to filter for members who are for impeachment but only during the the month of Sept in the year of 2019.</span>
-<span id="cb30-102"><a href="#cb30-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-105"><a href="#cb30-105" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb30-106"><a href="#cb30-106" aria-hidden="true" tabindex="-1"></a><span class="co"># 4) Filter for only results from September 2019 where a member is a YES for impeachment. </span></span>
-<span id="cb30-107"><a href="#cb30-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-108"><a href="#cb30-108" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb30-109"><a href="#cb30-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;YES&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-110"><a href="#cb30-110" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date_year <span class="sc">==</span> <span class="st">&quot;2019&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-111"><a href="#cb30-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date_month <span class="sc">==</span> <span class="st">&quot;9&quot;</span>)</span>
-<span id="cb30-112"><a href="#cb30-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb30-113"><a href="#cb30-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-114"><a href="#cb30-114" aria-hidden="true" tabindex="-1"></a>For question #5, we will put the same for impeachment and the new one we would add is where Hillary Clinton won more than 70% votes in 2016 underneath the CLinton P percent column on the dataset.</span>
-<span id="cb30-115"><a href="#cb30-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-118"><a href="#cb30-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb30-119"><a href="#cb30-119" aria-hidden="true" tabindex="-1"></a><span class="co"># 5) Filter for only results where a member is a YES for impeachment and is from a district</span></span>
-<span id="cb30-120"><a href="#cb30-120" aria-hidden="true" tabindex="-1"></a><span class="co"># where Clinton won more than 70 percent of the vote in 2016 (found in column &quot;clinton_percent&quot;)</span></span>
-<span id="cb30-121"><a href="#cb30-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-122"><a href="#cb30-122" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb30-123"><a href="#cb30-123" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;YES&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-124"><a href="#cb30-124" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(clinton_percent <span class="sc">&gt;</span> <span class="dv">70</span>)</span>
-<span id="cb30-125"><a href="#cb30-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb30-126"><a href="#cb30-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-127"><a href="#cb30-127" aria-hidden="true" tabindex="-1"></a>For question #6, we are now going to use the term arrange for it to arrange the data from low to high. Hence, going to arrange for people who have a BA degree or higher.</span>
-<span id="cb30-128"><a href="#cb30-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-131"><a href="#cb30-131" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb30-132"><a href="#cb30-132" aria-hidden="true" tabindex="-1"></a><span class="co"># 6) Sort the entire dataframe based on the percentage of a district that has a </span></span>
-<span id="cb30-133"><a href="#cb30-133" aria-hidden="true" tabindex="-1"></a><span class="co"># bachelor&#39;s degree or higher (&quot;pct_bachelors&quot;), from lowest to highest</span></span>
-<span id="cb30-134"><a href="#cb30-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-135"><a href="#cb30-135" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb30-136"><a href="#cb30-136" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(pct_bachelors)</span>
-<span id="cb30-137"><a href="#cb30-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb30-138"><a href="#cb30-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-139"><a href="#cb30-139" aria-hidden="true" tabindex="-1"></a>For question #7, arrange is the same as question #6 and the only thing I added along with it was those who are against (No) for impeachment.</span>
-<span id="cb30-140"><a href="#cb30-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-143"><a href="#cb30-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb30-144"><a href="#cb30-144" aria-hidden="true" tabindex="-1"></a><span class="co"># 7) Sort the just those who are NO on impeachment based on the percentage of a district that has a </span></span>
-<span id="cb30-145"><a href="#cb30-145" aria-hidden="true" tabindex="-1"></a><span class="co"># bachelor&#39;s degree or higher (&quot;pct_bachelors&quot;), from lowest to highest</span></span>
-<span id="cb30-146"><a href="#cb30-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-147"><a href="#cb30-147" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb30-148"><a href="#cb30-148" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;NO&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-149"><a href="#cb30-149" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(pct_bachelors)</span>
-<span id="cb30-150"><a href="#cb30-150" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb30-151"><a href="#cb30-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-152"><a href="#cb30-152" aria-hidden="true" tabindex="-1"></a>For question #8, the first two steps are exaclty the same from question #7 and the only thing that is added is the BA degrees that were below the national average from the data set.</span>
-<span id="cb30-153"><a href="#cb30-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-156"><a href="#cb30-156" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb30-157"><a href="#cb30-157" aria-hidden="true" tabindex="-1"></a><span class="co"># 8) Sort the just those who are NO on impeachment based on the percentage of a district that has a </span></span>
-<span id="cb30-158"><a href="#cb30-158" aria-hidden="true" tabindex="-1"></a><span class="co"># bachelor&#39;s degree or higher (&quot;pct_bachelors&quot;), from lowest to highest.</span></span>
-<span id="cb30-159"><a href="#cb30-159" aria-hidden="true" tabindex="-1"></a><span class="co"># Then filter those records by only those whose bachelor&#39;s percentage is below the national average (found</span></span>
-<span id="cb30-160"><a href="#cb30-160" aria-hidden="true" tabindex="-1"></a><span class="co"># in the &quot;pct_bachelors_compared_to_national&quot; column).</span></span>
-<span id="cb30-161"><a href="#cb30-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-162"><a href="#cb30-162" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb30-163"><a href="#cb30-163" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;NO&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-164"><a href="#cb30-164" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(pct_bachelors) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-165"><a href="#cb30-165" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pct_bachelors_compared_to_national <span class="sc">==</span> <span class="st">&quot;BELOW&quot;</span>)</span>
-<span id="cb30-166"><a href="#cb30-166" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb30-167"><a href="#cb30-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-168"><a href="#cb30-168" aria-hidden="true" tabindex="-1"></a>For question #9, we are back to just filtering. I just filtered the state NJ and filtered those members in NJ who are not for impeachment.</span>
-<span id="cb30-169"><a href="#cb30-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-172"><a href="#cb30-172" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb30-173"><a href="#cb30-173" aria-hidden="true" tabindex="-1"></a><span class="co"># 9) Filter for only members from New Jersey who are NO on impeachment</span></span>
-<span id="cb30-174"><a href="#cb30-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-175"><a href="#cb30-175" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb30-176"><a href="#cb30-176" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">&quot;NJ&quot;</span>, for_impeachment <span class="sc">==</span> <span class="st">&quot;NO&quot;</span>)</span>
-<span id="cb30-177"><a href="#cb30-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb30-178"><a href="#cb30-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-179"><a href="#cb30-179" aria-hidden="true" tabindex="-1"></a>For question #10, we use filter and arrange together again. We filter people for impeachment but only for the ones for impeachment before 2019. Then, we arranged the highest Clinton voters from those years prior to 2019.</span>
-<span id="cb30-180"><a href="#cb30-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-183"><a href="#cb30-183" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb30-184"><a href="#cb30-184" aria-hidden="true" tabindex="-1"></a><span class="co"># 10) Filter for those who were YES on impeachment, with a declared date prior to 2019. So only</span></span>
-<span id="cb30-185"><a href="#cb30-185" aria-hidden="true" tabindex="-1"></a><span class="co"># those with dates before 2019.  Then sort those so that the highest Clinton vote percentages are </span></span>
-<span id="cb30-186"><a href="#cb30-186" aria-hidden="true" tabindex="-1"></a><span class="co"># at the top.   </span></span>
-<span id="cb30-187"><a href="#cb30-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-188"><a href="#cb30-188" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb30-189"><a href="#cb30-189" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;YES&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-190"><a href="#cb30-190" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date_year <span class="sc">&lt;</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-191"><a href="#cb30-191" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(clinton_percent)</span>
-<span id="cb30-192"><a href="#cb30-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb30-193"><a href="#cb30-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-194"><a href="#cb30-194" aria-hidden="true" tabindex="-1"></a>Question #11 you really had to look at the wording of the question carefully. When it says “holdout” for impeachment, that is just another way of saying who are for (yes) impeachment for filtering. Additionally, you have to filter the national GDP that was below from each respected districts. Lastly, we use a new term called nrow that will tell the number of rows it was in from the data set.</span>
-<span id="cb30-195"><a href="#cb30-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-198"><a href="#cb30-198" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb30-199"><a href="#cb30-199" aria-hidden="true" tabindex="-1"></a><span class="co"># 11) Answer this question with a single numeric answer, and show the R code you</span></span>
-<span id="cb30-200"><a href="#cb30-200" aria-hidden="true" tabindex="-1"></a><span class="co"># used to reach that answer: How many members in the dataset who are holdouts on impeachment</span></span>
-<span id="cb30-201"><a href="#cb30-201" aria-hidden="true" tabindex="-1"></a><span class="co"># come from districts with a GDP below the national figure?</span></span>
-<span id="cb30-202"><a href="#cb30-202" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: there&#39;s a function called nrow() that tells you how many rows are in a dataframe</span></span>
-<span id="cb30-203"><a href="#cb30-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-204"><a href="#cb30-204" aria-hidden="true" tabindex="-1"></a>impeach <span class="sc">%&gt;%</span> </span>
-<span id="cb30-205"><a href="#cb30-205" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(for_impeachment <span class="sc">==</span> <span class="st">&quot;YES&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-206"><a href="#cb30-206" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gdp_above_national <span class="sc">==</span> <span class="st">&quot;BELOW&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-207"><a href="#cb30-207" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span>
-<span id="cb30-208"><a href="#cb30-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Research Paper&quot;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> &quot;Kiarra Pearson&quot;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">    self-contained: true</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>**Introduction**</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Gaining a thorough understanding of social media algorithms is crucial in contemporary society, given the prominent role of social media platforms in shaping public opinion and individual actions. These algorithms wield considerable influence by determining the content displayed on users&#39; feeds, utilizing diverse data sources to curate a personalized feed that includes relevant and captivating content for each user. This idea ultimately means that social media algorithms can influence the information that users consume and how they perceive and maneuver through society. By developing a comprehensive understanding of social media algorithms from both technological and sociological perspectives, we can exert control over the power dynamics that exist between these algorithms and their users. This control can lead to a more transparent and fair digital landscape, fostering a society that is better informed. </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>This paper investigates three key research questions: How do social media users perceive, comprehend, and respond to social media algorithms?  2) How do these algorithms function in practical terms? 3) What steps can we take to reshape the power dynamics between algorithms and users? The intricate relationship between social media algorithms and social identity highlights the transformative potential of digital platforms. These algorithms not only shape users&#39; perceptions, preferences, and self-presentation but also impact cultural narratives, amplify marginalized voices, and challenge established power structures. Consequently, they offer opportunities for personal growth, cultural empowerment, and social progress. Social media users perceive, understand, and react to algorithms differently. The user experience depends on their experience, knowledge, and platform interactions. Many users, particularly users of the newer generations, are unaware of the existence and impact of algorithms in shaping their social media experience. I found that many users use algorithms as manipulative tools that prioritize certain content and hide or suppress others, potentially influencing their views and behaviors. </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>Social media algorithms have become increasingly powerful in shaping our world, mostly reliant on the digital landscape. </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>**How do social media users perceive, understand, and react to social media algorithms?**</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>\&quot;Algorithms (and the) every day\&quot; by Michele Wilson (2017) discusses how algorithms influence the decisions, experiences, and social interactions of individuals. Wilson highlights algorithms&#39; significant role in shaping the information and content individuals encounter. The article emphasizes how algorithms selectively filter and personalize information, creating filter bubbles and echo chambers. These algorithmic mechanisms can reinforce existing biases, limit exposure to diverse perspectives, and hinder the formation of well-informed opinions (Wilson, 2017). Supporting this perspective, research by Pariser (2011) and Sunstein (2017) has shown that algorithmic systems tend to amplify existing beliefs and preferences, potentially narrowing individuals\&#39; worldviews and inhibiting critical thinking. </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>My Account Content Log indicates that my TikTok algorithm is heavily filtered and personalized to my interests, but I disagree with the idea that it narrows my worldview and critical thinking. While I acknowledge that my TikTok algorithm has created an echo chamber by showing content that mainly aligns with my beliefs and preferences, my algorithm reinforces my identity and values as a Black woman and as a student, which supports me in maintaining a healthy sense of self. For instance, seeing consistent content from Black social media influencers, Black leaders, politicians, educators, graduates, etc., are all consistent representations of myself, which promotes a diverse and inclusive online ecosystem without suppressing the viewpoints of others. </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>\&quot;Algorithmic Folk Theories and Identity: How TikTok Users Co-Produce Knowledge of Identity and Engage in Algorithmic Resistance\&quot; article discusses the ways algorithms and the identities of users correlate in digital spaces. In their study, Karizat et al. (2021) explore how TikTok users co-produce knowledge of identity and engage in algorithmic resistance on the platform. By employing a mixed-methods approach, including surveys, interviews, and content analysis, the researchers delve into the complex dynamics between algorithmic systems, user experiences, and identity construction. The research highlights the concept of algorithmic resistance, where users intentionally challenge or subvert the algorithm\&#39;s influence on their content and identity. This resistance takes various forms, such as diversifying content consumption, collaborating with others, and deliberately creating content that disrupts algorithmic expectations. By engaging in algorithmic resistance, users exert agency and actively shape their experiences on the platform. The findings of this study contribute to our understanding of the intricate relationship between algorithmic systems and user identity on TikTok. It underscores the active role played by users in co-producing knowledge about identity and navigating the algorithmic affordances of the platform. By shedding light on these processes, the research offers valuable insights into how users negotiate their identities and exercise agency within algorithmic environments.</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a> Social media algorithms are beyond the consumption of information; they begin to shape the self-perception of individuals and construct social identities. Research by other scholars has highlighted how algorithms meditate identity presentation and influence social dynamics within online platforms. Wilson (2017) discusses how algorithms shape users\&#39; understanding of themselves and others. By analyzing user data and behavior, algorithms contribute to personalized experiences and targeting advertising. Thus, online communities are formed based on shared interests and preferences. However, concerns arise regarding the potential for algorithmic systems to reinforce stereotypes and contribute to self-segregation.</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>Wilson (2017) emphasized the importance of transparency, accountability, and responsible use of algorithms in order to cultivate an informed society in the digital era. The functioning of algorithms is often obscure, creating difficulties for individuals to discern their inherent biases and workings. This lack of transparency can lead to concerns about autonomy and discrimination. Wilson\&#39;s article reinforces the significance of algorithms in shaping everyday life experiences. His findings highlight the potential consequences of algorithmic systems, including the formation of filter bubbles, the impact on identity construction, and the ethical challenges they present. While algorithms offer benefits such as efficiency and personalization, he calls for critical examination and responsible practice to ensure transparency, fairness, and accountability. Overall, Wilson\&#39;s article provides valuable insight into my ethnographic research on the impact of algorithms on the social identity of individuals in contemporary society. Additionally, Wilson\&#39;s article helps me weigh the pros and cons of whether or not algorithms empower social identity online or if it weakens our understanding of diverse perspectives.</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>**How do these algorithms actually operate in practice?**</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>While social media algorithms can introduce biases and ethical dilemmas, I argue that they also possess the capability to enrich social identity by offering individuals a platform to discover increased representation that might be lacking in conventional societal contexts. Given the current era where social media holds considerable influence as a source of news and information, it becomes vital to assess the extent to which users are exposed to a diverse range of ideological content. \&quot;Exposure to ideologically diverse news and opinion on Facebook,\&quot; published in Science, explores the correlation between social media consumption and political polarization. While personalized social media algorithms have been scrutinized and criticized, this article suggests a couple of benefits. 1) personalized algorithms can potentially introduce users to a broader range of information, allowing them to encounter different perspectives and expand their understanding of topics. 2) Personalized algorithms can help tailor content to individual interests and preferences, creating a more personalized and relevant user experience. By analyzing users\&#39; behavior, interactions, and preferences, algorithms can curate content that aligns with their specific interests, potentially enhancing user satisfaction and engagement. The personalized nature of social media algorithms contributes to a more enjoyable user experience by presenting content that aligns with individual interests and preferences. This concept can be likened to Black American students who choose to attend Historically Black Colleges and Universities, seeking a personalized educational experience that reflects their social and racial identity.</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>Moreover, the discussed article delves into the influence of social media algorithms on user experiences, examining the psychological and emotional dimensions such as satisfaction, engagement, and overall well-being. The researchers inform my understanding of the role of social media algorithms in facilitating social interactions and the formation of social identities. However, on the other hand, \&quot;The Filter Bubble: What the Internet is Hiding from You\&quot; (2011) argues that personalized algorithms enhance information discovery. By analyzing user behavior and interests, algorithms surface content that users will likely find interesting and valuable. This process exposes users to a wider range of topics, perspectives, and sources, expanding their knowledge and understanding deeper discovery. Thus, personalized algorithms are crucial in overcoming information overload and enabling efficient exploration of diverse content. </span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>A study by Matias et al. (2017) emphasizes the positive impact of personalized social media algorithms on user engagement. By presenting users with content that aligns with their preferences, algorithms create an environment where users feel connected and invested, contributing to a vibrant and active social media ecosystem. </span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>Another benefit of personalized social media algorithms is their role in targeted advertising and monetization. Research by Dellarocas et al. (2019) suggests that algorithms that understand users\&#39; preferences and behaviors can deliver more relevant and effective advertisements. This targeted approach benefits advertisers and users by presenting them with advertisements that align with their interests and needs. Furthermore, highlights the benefits of personalized social media algorithms in information consumption and user experience. In February, I came across several Makeup advertisements by Revlon and L\&#39;oreal Paris featuring Black celebrities-- rapper Megan Thee Stallion and actress Viola Davis. Black representation is not often seen in mainstream media for big makeup brands like Revlon and L\&#39;oreal, I find it ​​important to see diverse backgrounds, challenging homogeneity and promoting a more inclusive and equitable discourse. Moreover, I found it empowering because it amplifies the women&#39;s voices in the Black community and challenges negative stereotypes.</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="al">![](https://lh4.googleusercontent.com/YS7xRA6bnr0U5ijSRCWZtZJcHQzLIwuoAHkuhwxU31YJQLlOzT-S_47Yr11p18aWWJKl_zKocuvJh5JQ_QZ4e_FUqFANvXcIAWE9xqwg17-yefF-PqYf83KZ4eKw-PHzyqQ9k6MdREy8HPdNRPVGs5E)![](https://lh3.googleusercontent.com/iF1ZFDF7hiQfatV0oiu310HkiPyKM0f5jN8dNcFNxlexl-keTG38DirDvQ762l7PPXzg2GdMYZv7Rio-GHlE-lKGsIaZNJ0x262XRUU8qbKpigKSOf4Oq_oLWrt49rPUeWImjyufMzLObhkGJb08VIU)</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>**Hypothesis**</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>The algorithmic personalization of TikTok content reinforces existing social hierarchies and perpetuates echo chambers among users. This hypothesis suggests that TikTok algorithms contribute to the reinforcement of social hierarchies and the creation of echo chambers within the platform. The algorithms are designed to tailor content recommendations based on user preferences and behaviors. However, this personalization may lead to narrowing perspectives and amplifying existing biases and preferences. Users are more likely to be exposed to content that aligns with their beliefs, interests, and identities, reinforcing their own views and limited exposure to diverse perspectives. </span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>The hypothesis proposes that the algorithmic personalization of TikTok content may result in the formation of echo chambers, where users primarily interact with like-minded individuals and are less exposed to alternative viewpoints. This can further entrench social divisions and reinforce existing social hierarchies based on race, gender, socioeconomic status, and other identity markers. The algorithmic recommendations may prioritize popular or trending content, potentially overshadowing marginalized voices and perpetuating inequalities in representation.</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>**Methodology**</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>To investigate this hypothesis, I created a new TikTok account to examine user engagement patterns, content diversity, and the potential impact of algorithmic recommendations on reinforcing social hierarchies and forming echo chambers on a new TikTok account. Data metrics from email addresses and locations are essential components that influence TokTok\&#39;s recommendation algorithms. On the new TikTok account, I created a burner device with a new Apple ID email address. I was based in Washington, D.C., in the Foggy Bottom neighborhood near George Washington University during this research study.</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>**Findings**</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a> TikTok primarily introduced me to content from popular social media influencers, including advertisements regarding student life, school, and education. Without engaging with any content (liking, commenting, or reposting) on the new TikTok account or allowing my contacts to find my new account, I found that TikTok may have been using data from the new Apple ID which I used to create the new account. The information associated with my Apple ID is my personal information, such as my name and age. Other important information included device information, usage of other apps, and location data. Much of the content on the burner account pertained to \&quot;Student life\&quot; throughout the study. I believe that TikTok used the data from my Apple ID and university location to recommend content that users with similar data metrics have engaged with. Student life and school-related content are popular and trending on TikTok due to finals, midterms, and graduation season. </span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>The new TikTok account I studied became an echo chamber where I was essentially exposed to content relating to educational institutions, student life, and other academic topics that varied across different education levels. The echo chamber positively represented a sense of community and support among students, providing a platform for sharing experiences, offering advice, and building connections with peers in similar educational contexts. While echo chambers can reinforce biases and limited perspectives, I found that \&quot;student TikTok\&quot; did not include content that aligned with political or social viewpoints. I found the content to be very inclusive of all demographics as they discussed the shared experiences of a student in a learning environment. However, the \&quot;Student TikTok\&quot; echo chamber perpetuated certain realistic narratives and beliefs about students&#39; lifestyles that can also be misleading for immature viewers. The platform\&#39;s algorithm did contribute to the dissemination of false or misleading information regarding misleading academic advice, academic shortcuts, fabricated school experiences, bad behavior, and COVID-19 misinformation, but in a rather comedic way. </span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="al">![](https://lh4.googleusercontent.com/hOOWqgDO8xerSiqz06WQePS6EcyAux3UXYBXBkcKQgyZtX90--CTCYycnJv4mmG-XVe38TUKV-5SPRFV4uW7nrEzuWsjNih8cNimk7hDHu68kWWpaEY1JbOC6Z3Vy7JSQYRVV7RvKJlRcfasWxlcyiU)![](https://lh3.googleusercontent.com/YtdX0t-bDAZU5CHNqHwYclWRosYp41c69ABEskaYfwJkVjsv46pjutbtM_nL0hRDzl__-MwLEP4dvsnrqbjD2zT1ybayjXsvMHwPThispN-4XWYJOeRMOr3BvhOZhn02G0YpTFQX10sujd0FHhbjJWQ)![](https://lh4.googleusercontent.com/MCHjySWmtTrJCF88PqiOSc_KKdAKdbU9GYp0Ix_fQ3Ko4W0YOeR3yw8wWD6hPJ-fsnrJkJq3jNl_vF0knC-RAAnK-tbJ0zKgxOlHmSCgwNs9q3S3El0ozwcwGfJS8mFZEvM_TmmAs-xlQocm3gO2ulk)</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>**Discussion**</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>\&quot;Amplification and its Discontents: Why Regulating the Reach of Online Content is Hard\&quot; is an article by David Keller that delves into the challenges of regulating online content due to the complex interplay of technological, legal, and ethical factors. Keller discusses the role of algorithms in shaping public discourse and the spread of information. He highlights the tension between the desire to curb the negative consequences of amplification, such as the spread of misinformation or harmful content, and the importance of protecting free speech and promoting a diverse marketplace of ideas. This article informs me of the ongoing content moderation and free speech argument. While I do understand the importance of impeding the spread of content that can be harmful and incite destructive behaviors, I still believe that content producers should still be able to express themselves and their sense of humor freely. </span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>Throughout the article, Keller emphasizes the issue\&#39;s intricate nature and the trade-offs in regulating the reach of online content. He argues that any regulatory interventions should carefully balance the goals of promoting user safety, mitigating harmful effects, and preserving free expression; additionally, he calls for interdisciplinary collaboration and engagement between various stakeholders, including policymakers, platform operators, researchers, and Civil Society to develop nuanced and practical solutions. In the debate about how TikTok balances the need to moderate harmful content while respecting users\&#39; rights to freedom of expression, I argue that the algorithmic nature of TikTok\&#39;s content distribution can inadvertently reinforce existing biases by amplifying certain voices, and in this case, the voices of students. Social media platforms such as TikTok can use transparency, accountability, and user empowerment to ensure that free expression is upheld while mitigating potential harm.</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a> The echo chamber positively represents a sense of community and support among students, providing a platform for sharing experiences, offering advice, and building connections with peers in similar educational contexts. While echo chambers can reinforce biases and limited perspectives, I found that \&quot;Student TikTok\&quot; did not include content that aligned with political or social viewpoints. I found the content to be very inclusive of all demographics as they discussed the shared experiences of a student in a learning environment. </span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>**Conclusion**</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>Understanding the function of algorithms is crucial in today\&#39;s digital age for several reasons: informed decision-making and societal implications beyond individual user experiences. In summary, understanding the function of algorithms is essential to make informed decisions, protecting privacy, holding platforms accountable, and navigating the complex dynamics of digital platforms. It empowers individuals to actively engage with technology in a meaningful way, mitigate potential risk and promote a more transparent and user-centric digital ecosystem.</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>While personalized social media algorithms can create filter bubbles and echo chambers where users are isolated from diverse perspectives, it enormously benefits users in various ways. Many users find their TikTok algorithms a safe community with like-minded individuals from underrepresented niches with voices that do not always reach mainstream media or more diverse algorithms. To reshape the dynamic between social media and users, we can encourage developing and implementing an algorithmic design that prioritizes diversity, equity, and inclusion. This involves considering algorithms\&#39; potential biases and impacts on marginalized groups and actively working to mitigate any adverse effects. This approach requires a proactive commitment to addressing biases, promoting fairness, and ongoing monitoring and adaptation as societal norms and understandings evolve.</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>Social media algorithms can significantly influence individuals\&#39; self-perception and identity construction through the influence of influencers. Social media platforms often provide a space where users showcase the highlights of their lives, emphasizing positive experiences, achievements, and happiness. Algorithms often create echo chambers by showing users content aligning with their beliefs and preferences. This can reinforce identities, values, or biases while limiting exposure to diverse perspectives and alternative viewpoints. Users may become more entrenched in their echo chambers, leading to a narrowing of their worldview and a reinforcement of their existing identity constructs. </span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>A stronger understanding of social media algorithms can result in a more informed and empowered society. Awareness of personalized content can encourage users to actively seek and engage with content outside of their filter bubbles promoting a balanced perspective. Secondly, with media literacy and further knowledge about social media algorithms, users can recognize when they are being presented with misinformation and evaluate the credibility of the content producer. Lastly, after studying the effects of social media algorithms, students and organizations can advocate and raise awareness of the potential consequences of echo chambers, polarization, and the dissemination of misinformation. </span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>References</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>Bakshy, E., Eckles, D., &amp; Messing, S. (2015). Exposure to ideologically diverse news and opinion on Facebook. Science, 348(6239), 1130-1132. doi: 10.1126/science.aaa1160</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>Felzmann, H., Fosch-Villaronga, E., Lutz, C., &amp; Tamò-Larrieux, A. (2020). Towards transparency by design for artificial intelligence. Science and Engineering Ethics, 26(6), 3333-3361. doi: 10.1007/s11948-020-00276-4</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>Karizat, N., Delmonaco, D., Eslami, M., &amp; Andalibi, N. (2021). Algorithmic Folk Theories and Identity: How TikTok Users Co-Produce Knowledge of Identity and Engage in Algorithmic Resistance. Proceedings of the ACM on Human-Computer Interaction, 5(CSCW2), Article 305. https://doi.org/10.1145/3476046</span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>Keller, D. (2021). Amplification and its discontents: Why regulating the reach of online content is hard. Journal of Free Speech Law, 1, 227-268. Retrieved from https://www.journaloffreespeechlaw.org/keller.pdf</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>Klonick, K. (2020). The Facebook Oversight Board: Creating an independent institution to adjudicate online free expression. Yale Law Journal, 129(2418). Retrieved from <span class="ot">&lt;https://ssrn.com/abstract=3639234&gt;</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>Pariser, E. (2011). The Filter Bubble: What the Internet is Hiding from You. The Penguin Press.</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>Swart, J. (2021). Experiencing algorithms: How young people understand, feel about, and engage with algorithmic news selection on social media. Social Media + Society, 7(2), 20563051211008828. doi: 10.1177/20563051211008828</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>Tufekci, Z. (2014). Engineering the public: Big data, surveillance and computational politics. First Monday, 19(7). Retrieved from https://firstmonday.org/ojs/index.php/fm/article/view/4901</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>Wilson, M. (2017). Algorithms (and the) everyday. Information, Communication &amp; Society, 20(1), 137-150. doi: 10.1080/1369118X.2016.1149208</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
